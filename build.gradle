@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+group 'com.github.tkachuko.origramming.interview'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    testCompile "junit:junit:4.10"
+    testCompile "pl.pragmatists:JUnitParams:1.0.5"
+}
