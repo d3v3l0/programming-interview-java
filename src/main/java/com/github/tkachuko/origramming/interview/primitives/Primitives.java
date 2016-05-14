@@ -34,4 +34,20 @@ public class Primitives {
         }
         return x;
     }
+
+    /**
+     * Reverses bits in word
+     *
+     * @param word bit word
+     * @return word with reversed bits
+     */
+    public static long reverseBits(long word) {
+        int reversed = 0;
+        while (word != 0) {
+            reversed <<= 1;
+            reversed |= (word & 1);
+            word >>= 1;
+        }
+        return reversed;
+    }
 }

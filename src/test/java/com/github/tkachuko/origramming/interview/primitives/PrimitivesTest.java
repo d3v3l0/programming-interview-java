@@ -5,8 +5,7 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.github.tkachuko.origramming.interview.primitives.Primitives.parity;
-import static com.github.tkachuko.origramming.interview.primitives.Primitives.swapBits;
+import static com.github.tkachuko.origramming.interview.primitives.Primitives.*;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitParamsRunner.class)
@@ -60,5 +59,19 @@ public class PrimitivesTest {
 
     public static void main(String[] args) {
         System.out.println(13 >>> 1 & 1);
+    }
+
+    @Test
+    @Parameters
+    public void shouldReverseBitsInWord(long word, long reversed) {
+        assertEquals(reversed, reverseBits(word));
+    }
+
+    public Object parametersForShouldReverseBitsInWord() {
+        return new Object[]{
+                new Object[]{2, 1},
+                new Object[]{5, 5},
+                new Object[]{13, 11}
+        };
     }
 }
