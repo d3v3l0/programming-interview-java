@@ -5,6 +5,7 @@ public class Primitives {
     /**
      * Returns the parity of long word. Parity = number of bits equal to '1'.
      * Hint: use XoR and group word by 32 bits to speed up operation on processor level
+     *
      * @param word long word
      * @return 0 or 1
      */
@@ -15,5 +16,22 @@ public class Primitives {
         word ^= word >>> 4;
         word ^= word >>> 2;
         return (short) (word & 0x01);
+    }
+
+    /**
+     * Swaps bits on positions i and j in long word x.
+     * Hint: when do you need to swap?
+     *
+     * @param x long word
+     * @param i position
+     * @param j position
+     * @return long word with swapped bits at position i and j
+     */
+    public static long swapBits(long x, int i, int j) {
+        if ((x >>> i & 1) != (x >>> j & 1)) {
+            // Bits are different, we need to swap
+            return x ^ ((1 << j) | (1 << i));
+        }
+        return x;
     }
 }

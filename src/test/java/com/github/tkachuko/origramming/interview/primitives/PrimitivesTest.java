@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.github.tkachuko.origramming.interview.primitives.Primitives.parity;
+import static com.github.tkachuko.origramming.interview.primitives.Primitives.swapBits;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitParamsRunner.class)
@@ -15,12 +16,6 @@ public class PrimitivesTest {
     @Parameters
     public void parityShouldBeOne(long word) {
         assertEquals(1, parity(word));
-    }
-
-    @Test
-    @Parameters
-    public void parityShouldBeZero(long word) {
-        assertEquals(0, parity(word));
     }
 
     public Object parametersForParityShouldBeOne() {
@@ -33,6 +28,12 @@ public class PrimitivesTest {
         };
     }
 
+    @Test
+    @Parameters
+    public void parityShouldBeZero(long word) {
+        assertEquals(0, parity(word));
+    }
+
     public Object parametersForParityShouldBeZero() {
         return new Object[]{
                 new Object[]{123654156234156242L},
@@ -41,5 +42,23 @@ public class PrimitivesTest {
                 new Object[]{13},
                 new Object[]{Long.MAX_VALUE},
         };
+    }
+
+    @Test
+    @Parameters
+    public void shouldSwapBits(long word, int i, int j, long expected) {
+        assertEquals(expected, swapBits(word, i, j));
+    }
+
+    public Object parametersForShouldSwapBits() {
+        return new Object[]{
+                new Object[]{13, 0, 1, 14},
+                new Object[]{13, 1, 2, 11},
+                new Object[]{13, 2, 3, 13}
+        };
+    }
+
+    public static void main(String[] args) {
+        System.out.println(13 >>> 1 & 1);
     }
 }
