@@ -1,7 +1,7 @@
-language: scala
+language: java
 
 jdk:
   - oraclejdk8
 
 script:
-  - gradle clean test
+  - gradlew clean test
