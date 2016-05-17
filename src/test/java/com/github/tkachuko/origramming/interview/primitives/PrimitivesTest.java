@@ -74,4 +74,18 @@ public class PrimitivesTest {
                 new Object[]{13, 11}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldFindClosestWithTheSameWeight(int input, int expected) {
+        assertEquals(expected, closestWithTheSameWeight(input));
+    }
+
+    public Object parametersForShouldFindClosestWithTheSameWeight() {
+        return new Object[]{
+                new Object[]{6, 5},
+                new Object[]{2, 1},
+                new Object[]{13, 14}
+        };
+    }
 }

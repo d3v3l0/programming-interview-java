@@ -50,4 +50,19 @@ public class Primitives {
         }
         return reversed;
     }
+
+    /**
+     * Returns integer which has the same weight (number of bits set) and closest to the given number x
+     *
+     * @param x number provided
+     * @return integer which has the same number of bits set and closest to the given number x
+     */
+    public static int closestWithTheSameWeight(int x) {
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            if (((x >> i) & 1) != ((x >> (i + 1)) & 1)) {
+                return x ^ (1 << i | 1 << (i + 1));
+            }
+        }
+        return -1;
+    }
 }
