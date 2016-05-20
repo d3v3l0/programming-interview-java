@@ -65,4 +65,20 @@ public class Primitives {
         }
         return -1;
     }
+
+    /**
+     * Reverses the digits in given number
+     *
+     * @param number input to be reversed
+     * @return number with digits in reverse order
+     */
+    public static int reverseDigits(int number) {
+        int result = 0;
+        while (number != 0) {
+            result *= 10;
+            result += number % 10;
+            number /= 10;
+        }
+        return result;
+    }
 }

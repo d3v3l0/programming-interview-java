@@ -57,10 +57,6 @@ public class PrimitivesTest {
         };
     }
 
-    public static void main(String[] args) {
-        System.out.println(13 >>> 1 & 1);
-    }
-
     @Test
     @Parameters
     public void shouldReverseBitsInWord(long word, long reversed) {
@@ -86,6 +82,22 @@ public class PrimitivesTest {
                 new Object[]{6, 5},
                 new Object[]{2, 1},
                 new Object[]{13, 14}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldReverseDigitsInNumber(int input, int reversed) {
+        assertEquals(reversed, reverseDigits(input));
+    }
+
+    public Object parametersForShouldReverseDigitsInNumber() {
+        return new Object[]{
+                new Object[]{1, 1},
+                new Object[]{10, 1},
+                new Object[]{25, 52},
+                new Object[]{-51, -15},
+                new Object[]{-42, -24}
         };
     }
 }
