@@ -42,7 +42,7 @@ public class Primitives {
      * @return word with reversed bits
      */
     public static long reverseBits(long word) {
-        int reversed = 0;
+        long reversed = 0;
         while (word != 0) {
             reversed <<= 1;
             reversed |= (word & 1);
