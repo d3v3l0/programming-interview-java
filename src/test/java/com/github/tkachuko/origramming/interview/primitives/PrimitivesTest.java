@@ -100,4 +100,20 @@ public class PrimitivesTest {
                 new Object[]{-42, -24}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldDetermineIfNumberIsDecimalPalindrome(long number, boolean isDecimalPalindrome) {
+        assertEquals(isDecimalPalindrome, isDecimalPalindrome(number));
+    }
+
+    public Object parametersForShouldDetermineIfNumberIsDecimalPalindrome() {
+        return new Object[]{
+                new Object[]{1, true},
+                new Object[]{10, false},
+                new Object[]{252, true},
+                new Object[]{-51, false},
+                new Object[]{1111, true}
+        };
+    }
 }

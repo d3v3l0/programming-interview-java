@@ -81,4 +81,23 @@ public class Primitives {
         }
         return result;
     }
+
+    /**
+     * Determines if number is a decimal palindrome
+     *
+     * @param number input number
+     * @return if number is decimal palindrome
+     */
+    public static boolean isDecimalPalindrome(long number) {
+        if (number < 0) return false;
+        int numberOfDigits = (int) Math.log10(number) + 1;
+        long mask = (long) Math.pow(10, numberOfDigits - 1);
+        for (int i = 0; i < numberOfDigits / 2; i++) {
+            if (number / mask != number % 10) return false;
+            number %= mask;
+            number /= 10;
+            mask /= 100;
+        }
+        return true;
+    }
 }
