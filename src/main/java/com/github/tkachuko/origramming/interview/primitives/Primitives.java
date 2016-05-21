@@ -83,7 +83,29 @@ public class Primitives {
     }
 
     /**
-     * Determines if number is a decimal palindrome
+     * Determines if number in binary representation is a palindrome
+     *
+     * @param number input number
+     * @return if number in binary representation is palindrome
+     */
+    public static boolean isBinaryPalindrome(long number) {
+        if (number < 0) return false;
+        int numberOfBits = (int) (Math.log(number) / Math.log(2)) + 1;
+        int lastBitIndex = numberOfBits - 1;
+        long mask = 1 << lastBitIndex;
+        for (int i = 0; i < numberOfBits; i += 2) {
+            long lastBit = (number >> (lastBitIndex - i)) & 1;
+            long firstBit = number & 1;
+            if (lastBit != firstBit) return false;
+            number ^= mask;
+            number >>= 1;
+            mask >>= 2;
+        }
+        return true;
+    }
+
+    /**
+     * Determines if number in decimal representation is a palindrome
      *
      * @param number input number
      * @return if number is decimal palindrome

@@ -103,6 +103,22 @@ public class PrimitivesTest {
 
     @Test
     @Parameters
+    public void shouldDetermineIfNumberIsBinaryPalindrome(long number, boolean isBinaryPolindrome) {
+        assertEquals(isBinaryPolindrome, isBinaryPalindrome(number));
+    }
+
+    public Object parametersForShouldDetermineIfNumberIsBinaryPalindrome() {
+        return new Object[]{
+                new Object[]{21, true},
+                new Object[]{2, false},
+                new Object[]{21845, true},
+                new Object[]{-51, false},
+                new Object[]{31, true}
+        };
+    }
+
+    @Test
+    @Parameters
     public void shouldDetermineIfNumberIsDecimalPalindrome(long number, boolean isDecimalPalindrome) {
         assertEquals(isDecimalPalindrome, isDecimalPalindrome(number));
     }
