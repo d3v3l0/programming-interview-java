@@ -8,8 +8,7 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import static com.github.tkachuko.origramming.interview.arrays.Arrays.dutchFlagSort;
-import static com.github.tkachuko.origramming.interview.arrays.Arrays.threeValueSequentialSort;
+import static com.github.tkachuko.origramming.interview.arrays.Arrays.*;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
@@ -70,6 +69,26 @@ public class ArraysTest {
                         ThreeValues.FIRST, ThreeValues.THIRD,
                         ThreeValues.SECOND, ThreeValues.SECOND, ThreeValues.FIRST)
                 }
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldSortBooleanValuesSequentially(List<Boolean> array, boolean headValue) {
+        booleanValueSequentialSort(array, headValue);
+
+        int headValuePosition = array.lastIndexOf(headValue);
+        boolean headValueIsInTheBeginning = array.subList(0, headValuePosition).stream().allMatch(i -> i == headValue);
+        boolean allOtherValuesAreNotAsHeadOne = array.subList(headValuePosition + 1, array.size()).stream().allMatch(i -> i == !headValue);
+        assertTrue(headValueIsInTheBeginning && allOtherValuesAreNotAsHeadOne);
+    }
+
+    public Object parametersForShouldSortBooleanValuesSequentially() {
+        return new Object[]{
+                new Object[]{Arrays.asList(true, true, false, false, true, false), false},
+                new Object[]{Arrays.asList(true, true, false, false, true, false), true},
+                new Object[]{Arrays.asList(false, true, false, false, true, false), true},
+                new Object[]{Arrays.asList(false, true, false, false, true, true), false}
         };
     }
 }

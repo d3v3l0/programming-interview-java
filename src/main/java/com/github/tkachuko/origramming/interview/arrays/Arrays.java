@@ -26,6 +26,12 @@ public class Arrays {
         }
     }
 
+    public static void booleanValueSequentialSort(List<Boolean> array, boolean headValue) {
+        for (int i = 0, headValuePosition = 0; i < array.size(); i++) {
+            if (array.get(i) == headValue) Collections.swap(array, i, headValuePosition++);
+        }
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }
