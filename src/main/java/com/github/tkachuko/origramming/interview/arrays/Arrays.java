@@ -32,6 +32,21 @@ public class Arrays {
         }
     }
 
+    public static void plusOne(List<Integer> number) {
+        int over = 1;
+        for (int i = number.size() - 1; i >= 0; i--) {
+            int digit = number.get(i) + over;
+            over = digit / 10;
+            number.set(i, digit % 10);
+        }
+        if (over >= 10) {
+            number.add(0, over % 10);
+            number.add(0, over / 10);
+        } else if (over != 0) {
+            number.add(0, over);
+        }
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }

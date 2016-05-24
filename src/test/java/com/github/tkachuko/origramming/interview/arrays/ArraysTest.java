@@ -6,9 +6,11 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.tkachuko.origramming.interview.arrays.Arrays.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
@@ -89,6 +91,30 @@ public class ArraysTest {
                 new Object[]{Arrays.asList(true, true, false, false, true, false), true},
                 new Object[]{Arrays.asList(false, true, false, false, true, false), true},
                 new Object[]{Arrays.asList(false, true, false, false, true, true), false}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldAddOneToArrayAsNumber(List<Integer> number, List<Integer> incremented) {
+        plusOne(number);
+        assertEquals(incremented, number);
+    }
+
+    public Object parametersForShouldAddOneToArrayAsNumber() {
+        return new Object[]{
+                new Object[]{
+                        new ArrayList<>(Arrays.asList(1, 2, 3)),
+                        new ArrayList<>(Arrays.asList(1, 2, 4))
+                },
+                new Object[]{
+                        new ArrayList<>(Arrays.asList(1, 2, 9)),
+                        new ArrayList<>(Arrays.asList(1, 3, 0))
+                },
+                new Object[]{
+                        new ArrayList<>(Arrays.asList(9, 9)),
+                        new ArrayList<>(Arrays.asList(1, 0, 0))
+                }
         };
     }
 }
