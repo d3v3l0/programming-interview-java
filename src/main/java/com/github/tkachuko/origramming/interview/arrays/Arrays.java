@@ -86,6 +86,27 @@ public class Arrays {
         return furthermostSoFar >= lastIndex;
     }
 
+    /**
+     * Modification of canReachEnd to return minimum number of steps required to reach the end of board.
+     *
+     * @param board board representation
+     * @return minimum number of steps required to win
+     */
+    public static int minNumberOfStepsToReachEnd(List<Integer> board) {
+        if (!canReachEnd(board)) return -1;
+        int lastIndex = board.size() - 1;
+        int furthermostSoFar = 0;
+        int steps = 0;
+        for (int i = 0; i <= furthermostSoFar && furthermostSoFar < lastIndex; i++) {
+            int candidate = board.get(i) + i;
+            if (candidate > furthermostSoFar) {
+                steps++;
+                furthermostSoFar = candidate;
+            }
+        }
+        return steps;
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }

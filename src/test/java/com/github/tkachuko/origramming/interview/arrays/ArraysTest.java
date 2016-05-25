@@ -132,4 +132,20 @@ public class ArraysTest {
                 new Object[]{Arrays.asList(3, 2, 1, 1, 0, 0), false}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldFindMinNumberOfStepsRequiredToWin(List<Integer> board, int minSteps) {
+        assertEquals(minSteps, minNumberOfStepsToReachEnd(board));
+    }
+
+    public Object parametersForShouldFindMinNumberOfStepsRequiredToWin() {
+        return new Object[]{
+                new Object[]{Arrays.asList(1, 1, 0), 2},
+                new Object[]{Arrays.asList(3, 2, 1, 1, 1, 0), 3},
+                new Object[]{Arrays.asList(3, 2, 1, 3, 1, 1), 2},
+                new Object[]{Arrays.asList(9, 2, 1, 3, 1, 1), 1},
+                new Object[]{Arrays.asList(1, 2, 9, 1, 1, 1), 3}
+        };
+    }
 }
