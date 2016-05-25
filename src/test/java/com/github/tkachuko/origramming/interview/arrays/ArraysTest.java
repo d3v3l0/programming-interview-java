@@ -117,4 +117,19 @@ public class ArraysTest {
                 }
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldDefineIfEndCanBeReached(List<Integer> board, boolean canReachEnd) {
+        assertEquals(canReachEnd, canReachEnd(board));
+    }
+
+    public Object parametersForShouldDefineIfEndCanBeReached() {
+        return new Object[]{
+                new Object[]{Arrays.asList(1, 1, 1), true},
+                new Object[]{Arrays.asList(3, 3, 0, 0, 0, 0, 1), false},
+                new Object[]{Arrays.asList(3, 2, 1, 1, 1, 0), true},
+                new Object[]{Arrays.asList(3, 2, 1, 1, 0, 0), false}
+        };
+    }
 }
