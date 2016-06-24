@@ -7,7 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.github.tkachuko.origramming.interview.arrays.Arrays.*;
 import static org.junit.Assert.*;
@@ -32,10 +35,10 @@ public class ArraysTest {
 
     public Object parametersForShouldSortArrayInDutchFlagManner() {
         return new Object[]{
-                new Object[]{Arrays.asList(1, 3, 452, 1, 1, 2, 3, 1, 2, 3), 0},
-                new Object[]{Arrays.asList(1, 1, 1, 1), 0},
-                new Object[]{Arrays.asList(1, 2, 1, 3), 0},
-                new Object[]{Arrays.asList(1, 2, 3, 1), 1}
+                new Object[]{asList(1, 3, 452, 1, 1, 2, 3, 1, 2, 3), 0},
+                new Object[]{asList(1, 1, 1, 1), 0},
+                new Object[]{asList(1, 2, 1, 3), 0},
+                new Object[]{asList(1, 2, 3, 1), 1}
         };
     }
 
@@ -86,10 +89,10 @@ public class ArraysTest {
 
     public Object parametersForShouldSortBooleanValuesSequentially() {
         return new Object[]{
-                new Object[]{Arrays.asList(true, true, false, false, true, false), false},
-                new Object[]{Arrays.asList(true, true, false, false, true, false), true},
-                new Object[]{Arrays.asList(false, true, false, false, true, false), true},
-                new Object[]{Arrays.asList(false, true, false, false, true, true), false}
+                new Object[]{asList(true, true, false, false, true, false), false},
+                new Object[]{asList(true, true, false, false, true, false), true},
+                new Object[]{asList(false, true, false, false, true, false), true},
+                new Object[]{asList(false, true, false, false, true, true), false}
         };
     }
 
@@ -103,16 +106,16 @@ public class ArraysTest {
     public Object parametersForShouldAddOneToArrayAsNumber() {
         return new Object[]{
                 new Object[]{
-                        new ArrayList<>(Arrays.asList(1, 2, 3)),
-                        new ArrayList<>(Arrays.asList(1, 2, 4))
+                        new ArrayList<>(asList(1, 2, 3)),
+                        new ArrayList<>(asList(1, 2, 4))
                 },
                 new Object[]{
-                        new ArrayList<>(Arrays.asList(1, 2, 9)),
-                        new ArrayList<>(Arrays.asList(1, 3, 0))
+                        new ArrayList<>(asList(1, 2, 9)),
+                        new ArrayList<>(asList(1, 3, 0))
                 },
                 new Object[]{
-                        new ArrayList<>(Arrays.asList(9, 9)),
-                        new ArrayList<>(Arrays.asList(1, 0, 0))
+                        new ArrayList<>(asList(9, 9)),
+                        new ArrayList<>(asList(1, 0, 0))
                 }
         };
     }
@@ -125,10 +128,10 @@ public class ArraysTest {
 
     public Object parametersForShouldDefineIfEndCanBeReached() {
         return new Object[]{
-                new Object[]{Arrays.asList(1, 1, 1), true},
-                new Object[]{Arrays.asList(3, 3, 0, 0, 0, 0, 1), false},
-                new Object[]{Arrays.asList(3, 2, 1, 1, 1, 0), true},
-                new Object[]{Arrays.asList(3, 2, 1, 1, 0, 0), false}
+                new Object[]{asList(1, 1, 1), true},
+                new Object[]{asList(3, 3, 0, 0, 0, 0, 1), false},
+                new Object[]{asList(3, 2, 1, 1, 1, 0), true},
+                new Object[]{asList(3, 2, 1, 1, 0, 0), false}
         };
     }
 
@@ -140,11 +143,11 @@ public class ArraysTest {
 
     public Object parametersForShouldFindMinNumberOfStepsRequiredToWin() {
         return new Object[]{
-                new Object[]{Arrays.asList(1, 1, 0), 2},
-                new Object[]{Arrays.asList(3, 2, 1, 1, 1, 0), 3},
-                new Object[]{Arrays.asList(3, 2, 1, 3, 1, 1), 2},
-                new Object[]{Arrays.asList(9, 2, 1, 3, 1, 1), 1},
-                new Object[]{Arrays.asList(1, 2, 9, 1, 1, 1), 3}
+                new Object[]{asList(1, 1, 0), 2},
+                new Object[]{asList(3, 2, 1, 1, 1, 0), 3},
+                new Object[]{asList(3, 2, 1, 3, 1, 1), 2},
+                new Object[]{asList(9, 2, 1, 3, 1, 1), 1},
+                new Object[]{asList(1, 2, 9, 1, 1, 1), 3}
         };
     }
 
@@ -152,20 +155,35 @@ public class ArraysTest {
     @Parameters
     public void shouldDeleteAllOccurrencesOfElementInArray(List<Integer> array, int key) {
         deleteKeyIn(array, key);
-        System.out.println(array);
         assertFalse(array.stream().filter(i -> i == key).findAny().isPresent());
     }
 
     public Object parametersForShouldDeleteAllOccurrencesOfElementInArray() {
         return new Object[]{
-                new Object[]{Arrays.asList(1, 2, 3, 4, 5, 6), 1},
-                new Object[]{Arrays.asList(1, 1, 3, 4, 5, 6), 1},
-                new Object[]{Arrays.asList(1, 1, 3, 4, 1, 6), 1},
-                new Object[]{Arrays.asList(1, 1, 1, 4, 1, 6), 1},
-                new Object[]{Arrays.asList(1, 1, 1, 4, 1, 6, 1), 1},
-                new Object[]{Arrays.asList(1, 1, 1, 4, 1, 1, 1), 1},
-                new Object[]{Arrays.asList(), 1},
-                new Object[]{Arrays.asList(5, 5), 6}
+                new Object[]{asList(1, 2, 3, 4, 5, 6), 1},
+                new Object[]{asList(1, 1, 3, 4, 5, 6), 1},
+                new Object[]{asList(1, 1, 3, 4, 1, 6), 1},
+                new Object[]{asList(1, 1, 1, 4, 1, 6), 1},
+                new Object[]{asList(1, 1, 1, 4, 1, 6, 1), 1},
+                new Object[]{asList(1, 1, 1, 4, 1, 1, 1), 1},
+                new Object[]{asList(), 1},
+                new Object[]{asList(5, 5), 6}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldDeleteDuplicatesInSortedArray(List<Integer> array) {
+        List<Integer> expected = new ArrayList<>(new HashSet<>(array));
+        removeDuplicatesInSorted(array);
+        assertEquals(expected, array.stream().filter(i -> i != 0).collect(Collectors.toList()));
+    }
+
+    public Object parametersForShouldDeleteDuplicatesInSortedArray() {
+        return new Object[]{
+                new Object[]{asList(1, 1, 1, 2, 3, 3, 3, 3, 4, 5, 5)},
+                new Object[]{asList(1, 1, 1, 1)},
+                new Object[]{asList(1, 2, 3, 4, 5)}
         };
     }
 }

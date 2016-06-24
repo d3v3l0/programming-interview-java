@@ -128,6 +128,26 @@ public class Arrays {
         }
     }
 
+    /**
+     * Removes all duplicates from given sorted array. Leaves elements 0 at the end.
+     *
+     * @param array sorted array
+     */
+    public static void removeDuplicatesInSorted(List<Integer> array) {
+        int writeIndex = 1;
+        int duplicates = 0;
+        for (int i = 1; i < array.size(); i++) {
+            if (!array.get(writeIndex - 1).equals(array.get(i))) {
+                array.set(writeIndex++, array.get(i));
+            } else {
+                duplicates++;
+            }
+        }
+        for (int i = 0; i < duplicates; i++) {
+            array.set(array.size() - i - 1, 0);
+        }
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }
