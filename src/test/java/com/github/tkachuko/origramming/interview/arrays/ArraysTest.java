@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.tkachuko.origramming.interview.arrays.Arrays.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(JUnitParamsRunner.class)
 public class ArraysTest {
@@ -146,6 +145,27 @@ public class ArraysTest {
                 new Object[]{Arrays.asList(3, 2, 1, 3, 1, 1), 2},
                 new Object[]{Arrays.asList(9, 2, 1, 3, 1, 1), 1},
                 new Object[]{Arrays.asList(1, 2, 9, 1, 1, 1), 3}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldDeleteAllOccurrencesOfElementInArray(List<Integer> array, int key) {
+        deleteKeyIn(array, key);
+        System.out.println(array);
+        assertFalse(array.stream().filter(i -> i == key).findAny().isPresent());
+    }
+
+    public Object parametersForShouldDeleteAllOccurrencesOfElementInArray() {
+        return new Object[]{
+                new Object[]{Arrays.asList(1, 2, 3, 4, 5, 6), 1},
+                new Object[]{Arrays.asList(1, 1, 3, 4, 5, 6), 1},
+                new Object[]{Arrays.asList(1, 1, 3, 4, 1, 6), 1},
+                new Object[]{Arrays.asList(1, 1, 1, 4, 1, 6), 1},
+                new Object[]{Arrays.asList(1, 1, 1, 4, 1, 6, 1), 1},
+                new Object[]{Arrays.asList(1, 1, 1, 4, 1, 1, 1), 1},
+                new Object[]{Arrays.asList(), 1},
+                new Object[]{Arrays.asList(5, 5), 6}
         };
     }
 }

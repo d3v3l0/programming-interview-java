@@ -107,6 +107,27 @@ public class Arrays {
         return steps;
     }
 
+    /**
+     * Deletes all occurrences of given key in array but leaves number of 0 values at the end of array
+     *
+     * @param array to delete key from
+     * @param key   value to delete
+     */
+    public static void deleteKeyIn(List<Integer> array, int key) {
+        int writeIndex = 0;
+        int removed = 0;
+        for (int i = 0; i < array.size(); i++) {
+            if (array.get(i) != key) {
+                array.set(writeIndex++, array.get(i));
+            } else {
+                removed++;
+            }
+        }
+        for (int i = 0; i < removed; i++) {
+            array.set(array.size() - i - 1, 0);
+        }
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }
