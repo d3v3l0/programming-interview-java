@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.github.tkachuko.origramming.interview.arrays.Arrays.*;
@@ -184,6 +183,20 @@ public class ArraysTest {
                 new Object[]{asList(1, 1, 1, 2, 3, 3, 3, 3, 4, 5, 5)},
                 new Object[]{asList(1, 1, 1, 1)},
                 new Object[]{asList(1, 2, 3, 4, 5)}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldDefineMaximumProfitOfOneStockSale(List<Integer> prices, int maxMargin) {
+        assertEquals(maxMargin, bestStockMargin(prices));
+    }
+
+    public Object parametersForShouldDefineMaximumProfitOfOneStockSale() {
+        return new Object[]{
+                new Object[]{asList(1, 1, 1, 12, 3, 4, 56, 6, 3, 55), 55},
+                new Object[]{asList(110, 100, 90, 95, 89, 87, 80, 67, 100), 33},
+                new Object[]{asList(110, 100, 89, 95, 89, 96, 90, 100), 11}
         };
     }
 }

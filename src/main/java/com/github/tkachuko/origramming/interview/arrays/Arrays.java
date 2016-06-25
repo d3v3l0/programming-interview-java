@@ -148,6 +148,22 @@ public class Arrays {
         }
     }
 
+    /**
+     * Defined best margin possible on buying and selling one stock in any given day in predictions.
+     *
+     * @param deals prices of stock at given days
+     * @return best margin
+     */
+    public static int bestStockMargin(List<Integer> deals) {
+        int minSoFar = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        for (Integer price : deals) {
+            minSoFar = Math.min(minSoFar, price);
+            maxProfit = Math.max(maxProfit, price - minSoFar);
+        }
+        return maxProfit;
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }
