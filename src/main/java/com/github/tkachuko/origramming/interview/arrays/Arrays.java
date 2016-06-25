@@ -164,6 +164,25 @@ public class Arrays {
         return maxProfit;
     }
 
+    /**
+     * Finds the lengths of longest subarray where elements are equal.
+     *
+     * @param array input
+     * @return length of longest subarray
+     */
+    public static int lengthOfLongestSubarrayWithEqualElements(List<Integer> array) {
+        int lengthOfLongestSubarraySoFar = 1, maxLengthOfLongestSubarray = 1;
+        for (int i = 1; i < array.size(); i++) {
+            if (array.get(i).equals(array.get(i - 1))) {
+                lengthOfLongestSubarraySoFar++;
+            } else {
+                maxLengthOfLongestSubarray = Math.max(lengthOfLongestSubarraySoFar, maxLengthOfLongestSubarray);
+                lengthOfLongestSubarraySoFar = 1;
+            }
+        }
+        return Math.max(lengthOfLongestSubarraySoFar, maxLengthOfLongestSubarray);
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }

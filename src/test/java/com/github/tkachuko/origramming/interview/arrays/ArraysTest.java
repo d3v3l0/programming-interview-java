@@ -199,4 +199,18 @@ public class ArraysTest {
                 new Object[]{asList(110, 100, 89, 95, 89, 96, 90, 100), 11}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldFindLengthOfLongestSubarrayWithEqualElements(List<Integer> array, int maxLength) {
+        assertEquals(maxLength, lengthOfLongestSubarrayWithEqualElements(array));
+    }
+
+    public Object parametersForShouldFindLengthOfLongestSubarrayWithEqualElements() {
+        return new Object[]{
+                new Object[]{asList(1, 1, 1, 12, 3, 4, 56, 6, 3, 55), 3},
+                new Object[]{asList(1, 1, 1, 2, 2, 1, 1, 1, 1), 4},
+                new Object[]{asList(1, 1, 2, 2, 3, 3, 3, 3, 2, 2), 4}
+        };
+    }
 }
