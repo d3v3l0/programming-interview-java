@@ -122,4 +122,22 @@ public class Primitives {
         }
         return true;
     }
+
+    /**
+     * Defines if n is prime number
+     *
+     * @param n candidate to be a prime number
+     * @return if n is prime number
+     */
+    public static boolean isPrime(int n) {
+        int limit = (int) Math.ceil(Math.sqrt(n));
+        if (n == limit) return true;
+        for (int i = 2; i <= limit; i++) {
+            if (n % i == 0) {
+                System.out.println(i);
+                return false;
+            }
+        }
+        return true;
+    }
 }

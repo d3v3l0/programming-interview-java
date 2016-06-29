@@ -2,8 +2,7 @@ package com.github.tkachuko.origramming.interview.arrays;
 
 import com.github.tkachuko.origramming.interview.arrays.util.ThreeValues;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Arrays {
 
@@ -183,7 +182,34 @@ public class Arrays {
         return Math.max(lengthOfLongestSubarraySoFar, maxLengthOfLongestSubarray);
     }
 
+    /**
+     * Finds all the prime numbers from 1 to n
+     *
+     * @param n upper limit of primes search
+     * @return all primes from 1 to n
+     */
+    public static Set<Integer> allPrimesUpTo(int n) {
+        Set<Integer> result = new HashSet<>();
+        result.add(1);
+
+        List<Boolean> memo = new ArrayList<>(Collections.nCopies(n + 1, true));
+
+        for (int i = 2; i <= n; i++) {
+            if (memo.get(i)) {
+                result.add(i);
+                for (int j = i; j <= n; j += i) {
+                    memo.set(j, false);
+                }
+            }
+        }
+        return result;
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
+    }
+
+    public static <T> Set<T> asSet(T... elements) {
+        return new HashSet<>(java.util.Arrays.asList(elements));
     }
 }

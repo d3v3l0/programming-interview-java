@@ -132,4 +132,20 @@ public class PrimitivesTest {
                 new Object[]{1111, true}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldDetermineIfNumberIfPrime(int number, boolean isPrime) {
+        assertEquals(isPrime, isPrime(number));
+    }
+
+    public Object parametersForShouldDetermineIfNumberIfPrime() {
+        return new Object[]{
+                new Object[]{13, true},
+                new Object[]{26, false},
+                new Object[]{2, true},
+                new Object[]{121, false},
+                new Object[]{1, true}
+        };
+    }
 }

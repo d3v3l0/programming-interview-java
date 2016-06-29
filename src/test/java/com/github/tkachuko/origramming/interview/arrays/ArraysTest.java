@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.github.tkachuko.origramming.interview.arrays.Arrays.*;
@@ -211,6 +212,19 @@ public class ArraysTest {
                 new Object[]{asList(1, 1, 1, 12, 3, 4, 56, 6, 3, 55), 3},
                 new Object[]{asList(1, 1, 1, 2, 2, 1, 1, 1, 1), 4},
                 new Object[]{asList(1, 1, 2, 2, 3, 3, 3, 3, 2, 2), 4}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldFindLAllPrimesUpToNumber(int limit, Set<Integer> primes) {
+        assertEquals(primes, allPrimesUpTo(limit));
+    }
+
+    public Object parametersForShouldFindLAllPrimesUpToNumber() {
+        return new Object[]{
+                new Object[]{5, asSet(1, 2, 3, 5)},
+                new Object[]{11, asSet(1, 2, 3, 5, 7, 11)}
         };
     }
 }
