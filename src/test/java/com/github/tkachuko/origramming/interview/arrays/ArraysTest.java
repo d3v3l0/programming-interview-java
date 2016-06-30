@@ -237,7 +237,8 @@ public class ArraysTest {
     public Object parametersForShouldApplyPermutationToArray() {
         return new Object[]{
                 new Object[]{asList(1, 2, 3, 4), asList(2, 0, 1, 3), asList(2, 3, 1, 4)},
-                new Object[]{asList(1, 2, 3, 4), asList(3, 2, 1, 0), asList(4, 3, 2, 1)}
+                new Object[]{asList(1, 2, 3, 4), asList(3, 2, 1, 0), asList(4, 3, 2, 1)},
+                new Object[]{asList(1, 2, 3, 4), asList(0, 1, 2, 3), asList(1, 2, 3, 4)}
         };
     }
 }
