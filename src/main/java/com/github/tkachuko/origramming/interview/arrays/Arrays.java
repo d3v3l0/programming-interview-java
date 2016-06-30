@@ -205,6 +205,22 @@ public class Arrays {
         return result;
     }
 
+    /**
+     * Applies permutation to given array. Let permutation be [1,2,0] and the array[a,b,c]. Then after permutation
+     * method should return [b,c,a].
+     *
+     * @param array       array of elements
+     * @param permutation as array
+     * @return permuted array
+     */
+    public static List<Integer> apply(List<Integer> array, List<Integer> permutation) {
+        List<Integer> result = new ArrayList<>(Collections.nCopies(array.size(), -1));
+        for (int i = 0; i < permutation.size(); i++) {
+            result.set(permutation.get(i), array.get(i));
+        }
+        return result;
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }

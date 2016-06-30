@@ -227,4 +227,17 @@ public class ArraysTest {
                 new Object[]{11, asSet(1, 2, 3, 5, 7, 11)}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldApplyPermutationToArray(List<Integer> array, List<Integer> permutation, List<Integer> permuted) {
+        assertEquals(permuted, apply(array, permutation));
+    }
+
+    public Object parametersForShouldApplyPermutationToArray() {
+        return new Object[]{
+                new Object[]{asList(1, 2, 3, 4), asList(2, 0, 1, 3), asList(2, 3, 1, 4)},
+                new Object[]{asList(1, 2, 3, 4), asList(3, 2, 1, 0), asList(4, 3, 2, 1)}
+        };
+    }
 }
