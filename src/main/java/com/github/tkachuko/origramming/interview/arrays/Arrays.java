@@ -221,6 +221,20 @@ public class Arrays {
         return result;
     }
 
+    /**
+     * Provides inverse permutation based on permutation specified in array
+     *
+     * @param permutation permutation as array
+     * @return
+     */
+    public static List<Integer> inversePermutation(List<Integer> permutation) {
+        List<Integer> inversePermutation = new ArrayList<>(Collections.nCopies(permutation.size(), -1));
+        for (int i = 0; i < permutation.size(); i++) {
+            inversePermutation.set(permutation.get(i), i);
+        }
+        return inversePermutation;
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }

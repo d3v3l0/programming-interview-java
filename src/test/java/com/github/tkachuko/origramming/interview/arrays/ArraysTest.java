@@ -241,4 +241,18 @@ public class ArraysTest {
                 new Object[]{asList(1, 2, 3, 4), asList(0, 1, 2, 3), asList(1, 2, 3, 4)}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldReturnInversePermutation(List<Integer> permutation, List<Integer> inversePerputation) {
+        assertEquals(inversePerputation, inversePermutation(permutation));
+    }
+
+    public Object parametersForShouldReturnInversePermutation() {
+        return new Object[]{
+                new Object[]{asList(3, 0, 2, 1), asList(1, 3, 2, 0)},
+                new Object[]{asList(3, 2, 1, 0), asList(3, 2, 1, 0)},
+                new Object[]{asList(0, 1, 2, 3), asList(0, 1, 2, 3)}
+        };
+    }
 }
