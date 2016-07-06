@@ -255,4 +255,23 @@ public class ArraysTest {
                 new Object[]{asList(0, 1, 2, 3), asList(0, 1, 2, 3)}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldReturnNextPermutationInOrder(List<Integer> permutation, List<Integer> nextPermutation) {
+        nextPermutation(permutation);
+        assertEquals(nextPermutation, permutation);
+    }
+
+    public Object parametersForShouldReturnNextPermutationInOrder() {
+        return new Object[]{
+                new Object[]{asList(0, 1, 2, 3), asList(0, 1, 3, 2)},
+                new Object[]{asList(0, 1, 3, 2), asList(0, 2, 1, 3)},
+                new Object[]{asList(0, 2, 1, 3), asList(0, 2, 3, 1)},
+                new Object[]{asList(0, 2, 3, 1), asList(0, 3, 1, 2)},
+                new Object[]{asList(0, 3, 1, 2), asList(0, 3, 2, 1)},
+                new Object[]{asList(0, 3, 2, 1), asList(1, 0, 2, 3)},
+                new Object[]{asList(6, 2, 1, 5, 4, 3, 0), asList(6, 2, 3, 0, 1, 4, 5)}
+        };
+    }
 }

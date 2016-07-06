@@ -235,6 +235,35 @@ public class Arrays {
         return inversePermutation;
     }
 
+    /**
+     * Returns next permutation in comparable order such as (2,0,3) < (2,1,3)
+     *
+     * @param permutation the one to compute next from
+     */
+    public static void nextPermutation(List<Integer> permutation) {
+        // Find index i of last element in permutation so that holds p[i] > p[i - 1], i--
+        int lastIncreasingBackwardsIndex = permutation.size() - 1;
+        while (permutation.get(lastIncreasingBackwardsIndex) < permutation.get(lastIncreasingBackwardsIndex - 1)) {
+            lastIncreasingBackwardsIndex--;
+        }
+
+        // we are going to swap element at this index with one of the elements in increasing tail
+        int minimumChangeIndex = lastIncreasingBackwardsIndex - 1;
+
+        // swap element at p[lastIncreasingBackwardsIndex - 1] with the first one larger than it in tail
+        int firstGreaterInTailIndex = permutation.size() - 1;
+        while (firstGreaterInTailIndex > 0) {
+            if (permutation.get(firstGreaterInTailIndex) > permutation.get(minimumChangeIndex)) {
+                Collections.swap(permutation, firstGreaterInTailIndex, minimumChangeIndex);
+                break;
+            }
+            firstGreaterInTailIndex--;
+        }
+
+        // reverse the tail to sort it
+        Collections.reverse(permutation.subList(lastIncreasingBackwardsIndex, permutation.size()));
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }
