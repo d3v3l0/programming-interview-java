@@ -264,6 +264,53 @@ public class Arrays {
         Collections.reverse(permutation.subList(lastIncreasingBackwardsIndex, permutation.size()));
     }
 
+    /**
+     * Returns previous permutation in comparable order such as (2,0,3) < (2,1,3)
+     *
+     * @param permutation current permutation
+     */
+    public static void previousPermutation(List<Integer> permutation) {
+        // Find index i of last element in permutation so that holds p[i] > p[i - 1], i--
+        int lastIncreasingBackwardsIndex = permutation.size() - 1;
+        while (permutation.get(lastIncreasingBackwardsIndex) > permutation.get(lastIncreasingBackwardsIndex - 1)) {
+            lastIncreasingBackwardsIndex--;
+        }
+
+        // we are going to swap element at this index with one of the elements in decreasing tail
+        int minimumChangeIndex = lastIncreasingBackwardsIndex - 1;
+
+        // reverse tail
+        Collections.reverse(permutation.subList(lastIncreasingBackwardsIndex, permutation.size()));
+
+        // swap element at p[firstLesserInTailIndex] with the first one less than it in tail
+        int firstLesserInTailIndex = lastIncreasingBackwardsIndex;
+        while (firstLesserInTailIndex != permutation.size()) {
+            if (permutation.get(firstLesserInTailIndex) < permutation.get(minimumChangeIndex)) {
+                Collections.swap(permutation, firstLesserInTailIndex, minimumChangeIndex);
+                break;
+            }
+            firstLesserInTailIndex++;
+        }
+    }
+
+    /**
+     * Returns k-th permutation of given size in an order starting from first permutation.
+     *
+     * @param k    order of permutation to return
+     * @param size permutation size
+     * @return k-th permutation
+     */
+    public static List<Integer> kthPermutation(int k, int size) {
+        List<Integer> initial = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            initial.add(i);
+        }
+        for (int i = 0; i < k; i++) {
+            nextPermutation(initial);
+        }
+        return initial;
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }
