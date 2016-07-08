@@ -311,6 +311,25 @@ public class Arrays {
         return initial;
     }
 
+    /**
+     * Returns the random subset of given size
+     *
+     * @param set        original set
+     * @param subsetSize size of subset
+     * @return random subset of given size
+     */
+    public static List<Integer> randomSubSet(List<Integer> set, int subsetSize) {
+        List<Integer> subSet = new ArrayList<>(Collections.nCopies(subsetSize, 0));
+        Random random = new Random();
+        for (int i = 0; i < subsetSize; i++) {
+            Collections.swap(set, i, i + random.nextInt(set.size() - i));
+        }
+        for (int i = 0; i < subsetSize; i++) {
+            subSet.set(i, set.get(i));
+        }
+        return subSet;
+    }
+
     public static <T> List<T> asList(T... elements) {
         return java.util.Arrays.asList(elements);
     }

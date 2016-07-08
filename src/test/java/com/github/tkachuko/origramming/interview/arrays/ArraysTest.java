@@ -306,4 +306,20 @@ public class ArraysTest {
                 new Object[]{4, 4, asList(0, 3, 1, 2)}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldReturnRandomSubset(List<Integer> set, int subsetSize) {
+        List<Integer> subset = randomSubSet(set, subsetSize);
+        assertEquals(subsetSize, subset.size());
+        assertEquals(subsetSize, new HashSet<>(subset).size());
+    }
+
+    public Object parametersForShouldReturnRandomSubset() {
+        return new Object[]{
+                new Object[]{asList(1, 2, 3, 4, 5), 3},
+                new Object[]{asList(1, 2, 3, 4, 5), 2},
+                new Object[]{asList(1, 2, 3, 4, 5), 5}
+        };
+    }
 }
