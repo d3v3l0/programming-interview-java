@@ -5,9 +5,11 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static com.github.tkachuko.origramming.interview.strings.Strings.*;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 @RunWith(JUnitParamsRunner.class)
 public class StringsTest {
@@ -66,6 +68,19 @@ public class StringsTest {
                 new Object[]{"Hello World", "World Hello"},
                 new Object[]{"SingleWord", "SingleWord"},
                 new Object[]{"Reverse Words In Sentence", "Sentence In Words Reverse"}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldGenerateAllPhoneMnemonics(String number, List<String> shouldContain) {
+        assertTrue(allPhoneMnemonics(number).containsAll(shouldContain));
+    }
+
+    public Object parametersForShouldGenerateAllPhoneMnemonics() {
+        return new Object[]{
+                new Object[]{"2", Arrays.asList("A", "B", "C")},
+                new Object[]{"2276696", Arrays.asList("ACRONYM", "ABPOMZN")}
         };
     }
 }

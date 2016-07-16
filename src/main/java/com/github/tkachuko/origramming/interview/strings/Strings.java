@@ -1,5 +1,7 @@
 package com.github.tkachuko.origramming.interview.strings;
 
+import java.util.*;
+
 public class Strings {
 
     /**
@@ -68,4 +70,30 @@ public class Strings {
         }
         return new String(characters);
     }
+
+    public static List<String> allPhoneMnemonics(String number) {
+        List<String> result = new ArrayList<>();
+        allPhoneMnemonicsHelper(number, "", result);
+        return result;
+    }
+
+    private static void allPhoneMnemonicsHelper(String remainingNumber, String current, List<String> acc) {
+        if (remainingNumber.isEmpty()) acc.add(current);
+        else {
+            for (String element : PHONE_KEYBOARD.get(remainingNumber.charAt(0))) {
+                allPhoneMnemonicsHelper(remainingNumber.substring(1), current + element, acc);
+            }
+        }
+    }
+
+    private static final Map<Character, List<String>> PHONE_KEYBOARD = new HashMap<Character, List<String>>() {{
+        put('2', Arrays.asList("A", "B", "C"));
+        put('3', Arrays.asList("D", "E", "F"));
+        put('4', Arrays.asList("G", "H", "I"));
+        put('5', Arrays.asList("J", "K", "L"));
+        put('6', Arrays.asList("M", "N", "O"));
+        put('7', Arrays.asList("P", "Q", "R", "S"));
+        put('8', Arrays.asList("T", "U", "V"));
+        put('9', Arrays.asList("W", "X", "Y", "Z"));
+    }};
 }
