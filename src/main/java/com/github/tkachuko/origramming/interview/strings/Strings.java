@@ -71,12 +71,26 @@ public class Strings {
         return new String(characters);
     }
 
+    /**
+     * Generates all phone mnemonics using dictionary on cell phone keyboard.
+     * In example 2 can be represented as A, B or C.
+     *
+     * @param number number as a string
+     * @return all possible combinations of mnemonics
+     */
     public static List<String> allPhoneMnemonics(String number) {
         List<String> result = new ArrayList<>();
         allPhoneMnemonicsHelper(number, "", result);
         return result;
     }
 
+    /**
+     * Utility recursion method for problem above
+     *
+     * @param remainingNumber remaining digits to generate sequences
+     * @param current         current mnemonic under construction
+     * @param acc             accumulator of all mnemonics
+     */
     private static void allPhoneMnemonicsHelper(String remainingNumber, String current, List<String> acc) {
         if (remainingNumber.isEmpty()) acc.add(current);
         else {
@@ -85,6 +99,7 @@ public class Strings {
             }
         }
     }
+
 
     private static final Map<Character, List<String>> PHONE_KEYBOARD = new HashMap<Character, List<String>>() {{
         put('2', Arrays.asList("A", "B", "C"));
