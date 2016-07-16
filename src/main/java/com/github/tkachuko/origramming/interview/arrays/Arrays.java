@@ -18,7 +18,7 @@ public class Arrays {
         for (int i = 0, smaller = 0; i < array.size(); i++) {
             if (array.get(i) < pivot) Collections.swap(array, i, smaller++);
         }
-        for (int i = array.size() - 1, larger = array.size() - 1; i >= 0 && array.get(i) >= pivot; i--) {
+        for (int i = array.size() - 1, larger = array.size() - 1; i >= 0; i--) {
             if (array.get(i) > pivot) Collections.swap(array, i, larger--);
         }
     }
