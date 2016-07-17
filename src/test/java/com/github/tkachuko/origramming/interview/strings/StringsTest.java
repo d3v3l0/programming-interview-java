@@ -83,4 +83,18 @@ public class StringsTest {
                 new Object[]{"2276696", Arrays.asList("ACRONYM", "ABPOMZN")}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldDecodeRomanNumber(String romanNumber, int number) {
+        assertEquals(number, fromRomanNumber(romanNumber));
+    }
+
+    public Object parametersForShouldDecodeRomanNumber() {
+        return new Object[]{
+                new Object[]{"XXXXXIIIIIIIII", 59},
+                new Object[]{"LVIIII", 59},
+                new Object[]{"LIX", 59}
+        };
+    }
 }

@@ -111,4 +111,37 @@ public class Strings {
         put('8', Arrays.asList("T", "U", "V"));
         put('9', Arrays.asList("W", "X", "Y", "Z"));
     }};
+
+    /**
+     * Converts roman numbers to decimal ones
+     *
+     * @param romanNumber number in roman notation
+     * @return number in decimal notation
+     */
+    public static int fromRomanNumber(String romanNumber) {
+        int sum = 0;
+        int last = romanNumber.length() - 1;
+        for (int i = 1; i <= last; i++) {
+            int preceding = ROMAN_NUMBER_PRIMITIVES.get(romanNumber.charAt(i - 1));
+            int current = ROMAN_NUMBER_PRIMITIVES.get(romanNumber.charAt(i));
+            if (preceding < current) {
+                sum += (current - preceding);
+            } else if (i == last) {
+                sum += preceding + current;
+            } else {
+                sum += preceding;
+            }
+        }
+        return sum;
+    }
+
+    private static final Map<Character, Integer> ROMAN_NUMBER_PRIMITIVES = new HashMap<Character, Integer>() {{
+        put('I', 1);
+        put('V', 5);
+        put('X', 10);
+        put('L', 50);
+        put('C', 100);
+        put('D', 500);
+        put('M', 1000);
+    }};
 }
