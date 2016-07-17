@@ -144,4 +144,24 @@ public class Strings {
         put('D', 500);
         put('M', 1000);
     }};
+
+    /**
+     * Creates sinusoid from a string and prints it by concatenating upper level, middle and lower levels
+     *
+     * @param value input string
+     * @return sinusoid string
+     */
+    public static String sinusoidString(String value) {
+        StringBuilder builder = new StringBuilder(value.length());
+        for (int i = 1; i < value.length(); i += 4) {
+            builder.append(value.charAt(i));
+        }
+        for (int i = 0; i < value.length(); i += 2) {
+            builder.append(value.charAt(i));
+        }
+        for (int i = 3; i < value.length(); i += 4) {
+            builder.append(value.charAt(i));
+        }
+        return builder.toString();
+    }
 }

@@ -97,4 +97,16 @@ public class StringsTest {
                 new Object[]{"LIX", 59}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldCreateSinusoidString(String in, String sinusoid) {
+        assertEquals(sinusoid, sinusoidString(in));
+    }
+
+    public Object parametersForShouldCreateSinusoidString() {
+        return new Object[]{
+                new Object[]{"Hello World", "e lHloWrdlo"}
+        };
+    }
 }
