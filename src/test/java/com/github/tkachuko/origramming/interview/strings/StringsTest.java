@@ -5,6 +5,9 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -108,5 +111,31 @@ public class StringsTest {
         return new Object[]{
                 new Object[]{"Hello World", "e lHloWrdlo"}
         };
+    }
+
+    @Test
+    @Parameters
+    public void shouldReadLastLinesFromFile(File in, int numberOfLastLines, String expected) throws IOException {
+        assertEquals(expected, tail(in, numberOfLastLines));
+    }
+
+    public Object parametersForShouldReadLastLinesFromFile() {
+        return new Object[]{
+                new Object[]{fromClassPath("/textFile.txt"), 3, "beautiful\ntext\nfile"},
+                new Object[]{fromClassPath("/textFile.txt"), 5,
+                        "small\n" +
+                                "simple\n" +
+                                "beautiful\n" +
+                                "text\n" +
+                                "file"},
+        };
+    }
+
+    private static File fromClassPath(String path) {
+        try {
+            return new File(StringsTest.class.getResource(path).toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Could not load file from class path");
+        }
     }
 }

@@ -1,5 +1,8 @@
 package com.github.tkachuko.origramming.interview.strings;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.*;
 
 public class Strings {
@@ -163,5 +166,26 @@ public class Strings {
             builder.append(value.charAt(i));
         }
         return builder.toString();
+    }
+
+    public static String tail(File file, int numberOfLastLines) throws IOException {
+        RandomAccessFile fileAccess = new RandomAccessFile(file, "r");
+
+        StringBuilder result = new StringBuilder();
+        long linesRead = 0;
+
+        for (long filePointer = fileAccess.length() - 1; filePointer != -1; filePointer--) {
+            fileAccess.seek(filePointer);
+
+            char currentSymbol = (char) fileAccess.readByte();
+            if (currentSymbol == '\n') {
+                linesRead++;
+            }
+            if (linesRead == numberOfLastLines) {
+                break;
+            }
+            result.append(currentSymbol);
+        }
+        return result.reverse().toString();
     }
 }
