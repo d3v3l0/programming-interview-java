@@ -168,6 +168,14 @@ public class Strings {
         return builder.toString();
     }
 
+    /**
+     * Behaves like a tail command in UNIX: extracts last lines (number specified as a parameter) from a given file.
+     *
+     * @param file              to extract lines from
+     * @param numberOfLastLines number of lines to extract
+     * @return lines from the end of a file
+     * @throws IOException in case file could not be open for reading
+     */
     public static String tail(File file, int numberOfLastLines) throws IOException {
         RandomAccessFile fileAccess = new RandomAccessFile(file, "r");
 
@@ -187,5 +195,34 @@ public class Strings {
             result.append(currentSymbol);
         }
         return result.reverse().toString();
+    }
+
+    /**
+     * Define if a string is a substring of a given string. Uses Rabin-Karp algorithm.
+     *
+     * @param str  possible substring
+     * @param text string which may contain substring
+     * @return if a string is a substring
+     */
+    public static boolean isSubstring(String str, String text) {
+        Hashing.HashingData textHashData = Hashing.rollingHash(text, str.length());
+        Hashing.HashingData strHashData = Hashing.rollingHash(str, str.length());
+
+        int textHash = textHashData.hash;
+        int strHash = strHashData.hash;
+
+        for (int i = str.length(); i < text.length(); i++) {
+            if (textHash == strHash && text.substring(i - str.length(), i).equals(str))
+                return true;
+            else
+                textHash = Hashing.rollingHash(
+                        text.charAt(i - str.length()),
+                        text.charAt(i),
+                        textHash,
+                        strHashData.power
+                );
+        }
+
+        return false;
     }
 }

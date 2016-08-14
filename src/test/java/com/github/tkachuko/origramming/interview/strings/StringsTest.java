@@ -138,4 +138,20 @@ public class StringsTest {
             throw new RuntimeException("Could not load file from class path");
         }
     }
+
+    @Test
+    @Parameters
+    public void shouldDefineIfStringIsASubstringOfAText(String text, String string, boolean isSubstring) {
+        assertEquals(isSubstring, isSubstring(string, text));
+    }
+
+    private static Object parametersForShouldDefineIfStringIsASubstringOfAText() {
+        return new Object[]{
+                new Object[]{"Hello World", "hello", false},
+                new Object[]{"Hello World", "Hello", true},
+                new Object[]{"Hello World", "llo Wo", true},
+                new Object[]{"Hello World", "!!!", false},
+                new Object[]{"Hello World", "Hello World", false}
+        };
+    }
 }
