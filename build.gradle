@@ -11,4 +11,7 @@ dependencies {
 
     testCompile "junit:junit:4.10"
     testCompile "pl.pragmatists:JUnitParams:1.0.5"
+    testCompile "com.pholser:junit-quickcheck-core:0.6.1"
+    testCompile "com.pholser:junit-quickcheck-generators:0.6.1"
+    testCompile "org.slf4j:slf4j-log4j12:1.7.21"
 }
