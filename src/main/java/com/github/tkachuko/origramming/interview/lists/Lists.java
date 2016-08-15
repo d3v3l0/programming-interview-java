@@ -39,4 +39,24 @@ public class Lists {
         }
         return list;
     }
+
+    public static Node<Integer> sortedFromTwoSorted(Node<Integer> first, Node<Integer> second) {
+        Node<Integer> dummy = new Node<>(0);
+        Node<Integer> current = dummy;
+
+        while (first != null && second != null) {
+            if (first.data < second.data) {
+                current.tail = first;
+                first = first.tail;
+            } else {
+                current.tail = second;
+                second = second.tail;
+            }
+            current = current.tail;
+        }
+
+        current.tail = (first != null) ? first : second;
+
+        return dummy.tail;
+    }
 }
