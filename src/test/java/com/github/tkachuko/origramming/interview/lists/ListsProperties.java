@@ -5,39 +5,38 @@ import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.github.tkachuko.origramming.interview.lists.Lists.*;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitQuickcheck.class)
 public class ListsProperties {
 
     @Property
-    public void conversionsShouldBeOppositeOperations(Integer... values) {
-        assertArrayEquals(values, toJavaList(from(values)).toArray());
+    public void conversionsShouldBeOppositeOperations(List<Integer> values) {
+        assertEquals(values, toJavaList(from(values)));
     }
 
     @Property
-    public void resultingListShouldBeAlwaysSorted(Integer[] first, Integer[] second) {
-        Arrays.sort(first);
-        Arrays.sort(second);
+    public void resultingListShouldBeAlwaysSorted(List<Integer> first, List<Integer> second) {
+        Collections.sort(first);
+        Collections.sort(second);
 
         List<Integer> result = toJavaList(sortedFromTwoSorted(from(first), from(second)));
-        Object[] concatenated = concatenate(first, second);
-        Arrays.sort(concatenated);
+        first.addAll(second);
 
-        assertArrayEquals(concatenated, result.toArray());
+        Collections.sort(first);
+
+        assertEquals(first, result);
     }
 
-    @SuppressWarnings("unchecked")
-    private static <T> T[] concatenate(T[] first, T[] second) {
-        List<T> firstList = new ArrayList<>(Arrays.asList(first));
-        List<T> secondList = Arrays.asList(second);
+    @Property
+    public void shouldReverseList(List<Integer> elements) {
+        List<Integer> reversed = new ArrayList<>(elements);
+        Collections.reverse(reversed);
 
-        firstList.addAll(secondList);
-
-        return (T[]) firstList.toArray();
+        assertEquals(reversed, toJavaList(reverse(from(elements))));
     }
 }

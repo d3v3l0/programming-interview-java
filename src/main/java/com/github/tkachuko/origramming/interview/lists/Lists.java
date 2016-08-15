@@ -12,13 +12,13 @@ public class Lists {
      * @param <T>      type of elements
      * @return linked list out of elements
      */
-    public static <T> Node<T> from(T... elements) {
-        if (elements == null || elements.length == 0) return null;
+    public static <T> Node<T> from(List<T> elements) {
+        if (elements == null || elements.size() == 0) return null;
 
-        Node<T> head = new Node<>(elements[0]);
+        Node<T> head = new Node<>(elements.get(0));
         Node<T> current = head;
-        for (int i = 1; i < elements.length; i++) {
-            current.tail = new Node<>(elements[i]);
+        for (int i = 1; i < elements.size(); i++) {
+            current.tail = new Node<>(elements.get(i));
             current = current.tail;
         }
         return head;
@@ -40,6 +40,13 @@ public class Lists {
         return list;
     }
 
+    /**
+     * Merges two sorted linked lists into a sorted linked list
+     *
+     * @param first  sorted list
+     * @param second sorted list
+     * @return single sorted linked list
+     */
     public static Node<Integer> sortedFromTwoSorted(Node<Integer> first, Node<Integer> second) {
         Node<Integer> dummy = new Node<>(0);
         Node<Integer> current = dummy;
@@ -58,5 +65,24 @@ public class Lists {
         current.tail = (first != null) ? first : second;
 
         return dummy.tail;
+    }
+
+    /**
+     * Reverses linked list
+     *
+     * @param head of linked list
+     * @param <T>  type of elements
+     * @return reversed linked list
+     */
+    public static <T> Node<T> reverse(Node<T> head) {
+        if (head == null) return null;
+        if (head.tail == null) return head;
+
+        Node<T> reversed = reverse(head.tail);
+
+        head.tail.tail = head;
+        head.tail = null;
+
+        return reversed;
     }
 }
