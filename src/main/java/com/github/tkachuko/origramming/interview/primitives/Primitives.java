@@ -134,7 +134,6 @@ public class Primitives {
         if (n == limit) return true;
         for (int i = 2; i <= limit; i++) {
             if (n % i == 0) {
-                System.out.println(i);
                 return false;
             }
         }
