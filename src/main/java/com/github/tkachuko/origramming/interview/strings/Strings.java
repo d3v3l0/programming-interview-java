@@ -205,6 +205,9 @@ public class Strings {
      * @return if a string is a substring
      */
     public static boolean isSubstring(String str, String text) {
+        if (str.length() > text.length()) return false;
+        else if (str.length() == text.length()) return str.equals(text);
+
         Hashing.HashingData textHashData = Hashing.rollingHash(text, str.length());
         Hashing.HashingData strHashData = Hashing.rollingHash(str, str.length());
 

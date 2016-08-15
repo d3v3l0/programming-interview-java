@@ -151,7 +151,7 @@ public class StringsTest {
                 new Object[]{"Hello World", "Hello", true},
                 new Object[]{"Hello World", "llo Wo", true},
                 new Object[]{"Hello World", "!!!", false},
-                new Object[]{"Hello World", "Hello World", false}
+                new Object[]{"Hello World", "Hello World", true}
         };
     }
 }
