@@ -106,4 +106,47 @@ public class Lists {
         }
         return previous;
     }
+
+    /**
+     * Reverses range in linked list
+     *
+     * @param head start of linked list
+     * @param from element to start reverse (starts from 1)
+     * @param to   element to finish reverse
+     * @param <T>  type of element ins list
+     * @return linked list where elements starting from given indexes are reversed
+     */
+    public static <T> Node<T> reverseRange(Node<T> head, int from, int to) {
+        boolean headIsGoingToChange = from > 1;
+        Node<T> current = head;
+        int counter = 1;
+        Node<T> startOfSubList;
+
+        if (headIsGoingToChange) {
+            while (counter++ != from - 1) {
+                current = current.tail;
+            }
+            startOfSubList = current.tail;
+        } else {
+            startOfSubList = head;
+        }
+
+        Node<T> previous = null, currentInReversal = startOfSubList;
+        while (counter++ <= to) {
+            Node<T> tmp = currentInReversal.tail;
+            currentInReversal.tail = previous;
+            previous = currentInReversal;
+            currentInReversal = tmp;
+        }
+
+        if (headIsGoingToChange) {
+            head.tail = current;
+            current.tail = previous;
+            startOfSubList.tail = currentInReversal;
+            return head;
+        } else {
+            current.tail = currentInReversal;
+            return previous;
+        }
+    }
 }

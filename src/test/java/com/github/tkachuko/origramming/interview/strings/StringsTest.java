@@ -145,7 +145,7 @@ public class StringsTest {
         assertEquals(isSubstring, isSubstring(string, text));
     }
 
-    private static Object parametersForShouldDefineIfStringIsASubstringOfAText() {
+    public static Object parametersForShouldDefineIfStringIsASubstringOfAText() {
         return new Object[]{
                 new Object[]{"Hello World", "hello", false},
                 new Object[]{"Hello World", "Hello", true},
