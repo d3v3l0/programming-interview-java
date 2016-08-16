@@ -68,21 +68,42 @@ public class Lists {
     }
 
     /**
-     * Reverses linked list
+     * Reverses linked list (recursively)
      *
      * @param head of linked list
      * @param <T>  type of elements
      * @return reversed linked list
      */
-    public static <T> Node<T> reverse(Node<T> head) {
+    public static <T> Node<T> reverseRecursively(Node<T> head) {
         if (head == null) return null;
         if (head.tail == null) return head;
 
-        Node<T> reversed = reverse(head.tail);
+        Node<T> reversed = reverseRecursively(head.tail);
 
         head.tail.tail = head;
         head.tail = null;
 
         return reversed;
+    }
+
+    /**
+     * Reverses linked list (without recursion)
+     *
+     * @param head of linked list
+     * @param <T>  type of elements
+     * @return reversed linked list
+     */
+    public static <T> Node<T> reverseWithoutRecursion(Node<T> head) {
+        if (head == null) return null;
+        else if (head.tail == null) return head;
+
+        Node<T> previous = null, current = head;
+        while (current != null) {
+            Node<T> originalTail = current.tail;
+            current.tail = previous;
+            previous = current;
+            current = originalTail;
+        }
+        return previous;
     }
 }

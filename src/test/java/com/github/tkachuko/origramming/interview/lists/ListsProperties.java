@@ -33,10 +33,21 @@ public class ListsProperties {
     }
 
     @Property
-    public void shouldReverseList(List<Integer> elements) {
+    public void shouldReverseListRecursively(List<Integer> elements) {
         List<Integer> reversed = new ArrayList<>(elements);
         Collections.reverse(reversed);
 
-        assertEquals(reversed, toJavaList(reverse(from(elements))));
+        assertEquals(reversed, toJavaList(reverseRecursively(from(elements))));
+    }
+
+    @Property
+    public void shouldReverseListNonRecursively(List<Integer> elements) {
+        List<Integer> reversed = new ArrayList<>(elements);
+        Collections.reverse(reversed);
+
+        assertEquals(
+                toJavaList(reverseWithoutRecursion(from(elements))),
+                toJavaList(reverseRecursively(from(elements)))
+        );
     }
 }
