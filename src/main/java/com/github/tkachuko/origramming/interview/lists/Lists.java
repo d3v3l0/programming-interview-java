@@ -149,4 +149,41 @@ public class Lists {
             return previous;
         }
     }
+
+    /**
+     * Determines if list has a cycle and returns start of the cycle or null if no cycle detected
+     *
+     * @param head list
+     * @param <T>  type of elements
+     * @return start of cylec or null if no cycles in list
+     */
+    public static <T> Node<T> cycleStart(Node<T> head) {
+        Node<T> slow = head;
+        Node<T> fast = head.tail;
+
+        while (slow != fast) {
+            if (slow.tail == null || fast == null || fast.tail == null) return null;
+            slow = slow.tail;
+            fast = fast.tail.tail;
+        }
+
+        int cycleLength = 1;
+        slow = slow.tail;
+        while (slow != fast) {
+            slow = slow.tail;
+            cycleLength++;
+        }
+
+        Node<T> distant = head;
+        for (int i = 0; i < cycleLength; i++) {
+            distant = distant.tail;
+        }
+
+        while (distant != head) {
+            distant = distant.tail;
+            head = head.tail;
+        }
+
+        return head;
+    }
 }

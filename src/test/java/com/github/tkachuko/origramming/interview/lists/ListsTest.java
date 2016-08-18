@@ -10,6 +10,7 @@ import java.util.List;
 import static com.github.tkachuko.origramming.interview.lists.Lists.*;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(JUnitParamsRunner.class)
 public class ListsTest {
@@ -30,5 +31,41 @@ public class ListsTest {
                 new Object[]{asList(1, 2, 3, 4, 5), 1, 5, asList(5, 4, 3, 2, 1)},
                 new Object[]{asList(1, 2, 3, 4, 5, 6, 7, 8), 2, 7, asList(1, 7, 6, 5, 4, 3, 2, 8)}
         };
+    }
+
+    @Test
+    @Parameters
+    public void shouldDetectCyclesInList(Node<Integer> list, boolean hasCycle, Integer cycleStartElement) {
+        Node<Integer> cycleStart = cycleStart(list);
+        if (hasCycle) {
+            assertEquals(cycleStartElement, cycleStart.data);
+        } else {
+            assertNull(cycleStart);
+        }
+    }
+
+    public static Object parametersForShouldDetectCyclesInList() {
+        return new Object[]{
+                new Object[]{cycledList(2, 5), true, 2},
+                new Object[]{cycledList(5, 5), true, 5},
+                new Object[]{cycledList(3, 5), true, 3},
+                new Object[]{from(asList(1, 2, 3, 4, 5)), false, 0}
+        };
+    }
+
+    private static Node<Integer> cycledList(int cycleStart, int size) {
+        Node<Integer> head = new Node<>(1);
+        Node<Integer> cycleNode = new Node<>(cycleStart);
+        Node<Integer> current = head;
+        for (int i = 2; i <= size; i++) {
+            if (i == cycleStart) {
+                current.tail = cycleNode;
+            } else {
+                current.tail = new Node<>(i);
+            }
+            current = current.tail;
+        }
+        current.tail = cycleNode;
+        return head;
     }
 }
