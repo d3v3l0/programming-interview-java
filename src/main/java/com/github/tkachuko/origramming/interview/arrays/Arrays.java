@@ -154,13 +154,13 @@ public class Arrays {
      * @return best margin
      */
     public static int bestStockMargin(List<Integer> deals) {
-        int minSoFar = Integer.MAX_VALUE;
-        int maxProfit = 0;
+        int lowestPrice = Integer.MAX_VALUE;
+        int margin = 0;
         for (Integer price : deals) {
-            minSoFar = Math.min(minSoFar, price);
-            maxProfit = Math.max(maxProfit, price - minSoFar);
+            lowestPrice = Math.min(lowestPrice, price);
+            margin = Math.max(margin, price - lowestPrice);
         }
-        return maxProfit;
+        return margin;
     }
 
     /**
