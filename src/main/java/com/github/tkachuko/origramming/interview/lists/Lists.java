@@ -155,7 +155,7 @@ public class Lists {
      *
      * @param head list
      * @param <T>  type of elements
-     * @return start of cylec or null if no cycles in list
+     * @return start of cycled or null if no cycles in list
      */
     public static <T> Node<T> cycleStart(Node<T> head) {
         Node<T> slow = head;
@@ -185,5 +185,28 @@ public class Lists {
         }
 
         return head;
+    }
+
+    /**
+     * Removes kth last element from the list
+     *
+     * @param head start of linked list
+     * @param k    element number starting from the end of the list
+     * @param <T>  type of elements
+     */
+    public static <T> void removeKthFromEnd(Node<T> head, int k) {
+        Node<T> beforeTarget = head;
+        Node<T> fast = head;
+        int distance = k;
+        while (distance-- != 0) {
+            fast = fast.tail;
+        }
+
+        while (fast.tail != null) {
+            beforeTarget = beforeTarget.tail;
+            fast = fast.tail;
+        }
+
+        beforeTarget.tail = beforeTarget.tail.tail;
     }
 }

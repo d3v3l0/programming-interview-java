@@ -68,4 +68,20 @@ public class ListsTest {
         current.tail = cycleNode;
         return head;
     }
+
+    @Test
+    @Parameters
+    public void shouldRemoveKthLastElement(Node<Integer> list, int k, List<Integer> expected) {
+        removeKthFromEnd(list, k);
+        assertEquals(expected, toJavaList(list));
+    }
+
+    public static Object parametersForShouldRemoveKthLastElement() {
+        return new Object[]{
+                new Object[]{from(asList(0, 1, 2, 3, 4, 5)), 2, asList(0, 1, 2, 3, 5)},
+                new Object[]{from(asList(0, 1, 2, 3, 4, 5)), 1, asList(0, 1, 2, 3, 4)},
+                new Object[]{from(asList(0, 1, 2, 3, 4, 5)), 4, asList(0, 1, 3, 4, 5)},
+                new Object[]{from(asList(0, 1, 2, 3, 4, 5)), 5, asList(0, 2, 3, 4, 5)}
+        };
+    }
 }
