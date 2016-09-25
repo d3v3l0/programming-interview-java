@@ -84,4 +84,18 @@ public class ListsTest {
                 new Object[]{from(asList(0, 1, 2, 3, 4, 5)), 5, asList(0, 2, 3, 4, 5)}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldRemoveDuplicatesFromSorted(Node<Integer> list, List<Integer> expected) {
+        removeDuplicatesFromSorted(list);
+        assertEquals(expected, toJavaList(list));
+    }
+
+    public static Object parametersForShouldRemoveDuplicatesFromSorted() {
+        return new Object[]{
+                new Object[]{from(asList(0, 1, 1, 2, 2, 2, 3, 4, 5, 5)), asList(0, 1, 2, 3, 4, 5)},
+                new Object[]{from(asList(0, 0, 1, 1, 2, 2, 2, 3, 4, 4, 5, 5, 5)), asList(0, 1, 2, 3, 4, 5)}
+        };
+    }
 }

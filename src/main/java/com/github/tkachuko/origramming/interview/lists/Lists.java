@@ -209,4 +209,27 @@ public class Lists {
 
         beforeTarget.tail = beforeTarget.tail.tail;
     }
+
+    /**
+     * Removes duplicates from sorted linked list
+     *
+     * @param head start of linked list
+     * @param <T>  type of elements
+     * @return head of linked list without duplicates
+     */
+    public static <T> Node<T> removeDuplicatesFromSorted(Node<T> head) {
+        Node<T> dummyHead = new Node<>(null, head);
+        Node<T> current = dummyHead.tail;
+
+        while (current != null) {
+            Node<T> runner = current.tail;
+            while (runner != null && current.data.equals(runner.data)) {
+                runner = runner.tail;
+            }
+            current.tail = runner;
+            current = current.tail;
+        }
+
+        return dummyHead.tail;
+    }
 }
