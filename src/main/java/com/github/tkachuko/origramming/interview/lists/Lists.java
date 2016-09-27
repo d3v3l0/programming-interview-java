@@ -256,7 +256,7 @@ public class Lists {
         else end.tail = head;
 
         Node<T> newTail = head;
-        for (int newHeadPosition = 1; newHeadPosition < length - k; newHeadPosition++) {
+        for (int newTailPosition = 1; newTailPosition < length - k; newTailPosition++) {
             newTail = newTail.tail;
         }
 
