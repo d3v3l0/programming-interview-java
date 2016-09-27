@@ -232,4 +232,36 @@ public class Lists {
 
         return dummyHead.tail;
     }
+
+    /**
+     * Shifts given linked list k positions right
+     *
+     * @param head start of linked list
+     * @param k    positions to shift the list
+     * @param <T>  type of elements
+     * @return new head of the list
+     */
+    public static <T> Node<T> shiftRight(Node<T> head, int k) {
+        if (k <= 0) throw new RuntimeException("Number of positions to shift a list should be positive");
+
+        Node<T> end = head;
+        int length = 1;
+        while (end.tail != null) {
+            length++;
+            end = end.tail;
+        }
+
+        k %= length;
+        if (k == 0) return head;
+        else end.tail = head;
+
+        Node<T> newTail = head;
+        for (int newHeadPosition = 1; newHeadPosition < length - k; newHeadPosition++) {
+            newTail = newTail.tail;
+        }
+
+        Node<T> newHead = newTail.tail;
+        newTail.tail = null;
+        return newHead;
+    }
 }

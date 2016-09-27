@@ -98,4 +98,21 @@ public class ListsTest {
                 new Object[]{from(asList(0, 0, 1, 1, 2, 2, 2, 3, 4, 4, 5, 5, 5)), asList(0, 1, 2, 3, 4, 5)}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldShiftListRight(Node<Integer> list, int k, List<Integer> expected) {
+        Node<Integer> shifted = shiftRight(list, k);
+        assertEquals(expected, toJavaList(shifted));
+    }
+
+    public static Object parametersForShouldShiftListRight() {
+        return new Object[]{
+                new Object[]{from(asList(1, 2, 3, 4, 5)), 2, asList(4, 5, 1, 2, 3)},
+                new Object[]{from(asList(1, 2, 3, 4, 5)), 3, asList(3, 4, 5, 1, 2)},
+                new Object[]{from(asList(1, 2, 3, 4, 5)), 4, asList(2, 3, 4, 5, 1)},
+                new Object[]{from(asList(1, 2, 3, 4, 5)), 5, asList(1, 2, 3, 4, 5)},
+                new Object[]{from(asList(1, 2, 3, 4, 5)), 6, asList(5, 1, 2, 3, 4)},
+        };
+    }
 }
