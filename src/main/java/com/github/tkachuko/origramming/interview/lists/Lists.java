@@ -264,4 +264,36 @@ public class Lists {
         newTail.tail = null;
         return newHead;
     }
+
+    /**
+     * Merges (or better to say shuffles) in even-odd (element number-wise) order
+     *
+     * @param head start of linked list
+     * @param <T>  type of elements
+     * @return list where even elements come first and odd come afterwards
+     */
+    public static <T> Node<T> evenOddMerge(Node<T> head) {
+        Node<T> evenDummyHead = new Node<>(null);
+        Node<T> oddDummyHead = new Node<>(null);
+        Node<T> currentEven = evenDummyHead;
+        Node<T> currentOdd = oddDummyHead;
+
+        boolean isOdd = true;
+        while (head != null) {
+            if (isOdd) {
+                currentOdd.tail = head;
+                currentOdd = currentOdd.tail;
+            } else {
+                currentEven.tail = head;
+                currentEven = currentEven.tail;
+            }
+
+            isOdd = !isOdd;
+            head = head.tail;
+        }
+
+        currentOdd.tail = null;
+        currentEven.tail = oddDummyHead.tail;
+        return evenDummyHead.tail;
+    }
 }
