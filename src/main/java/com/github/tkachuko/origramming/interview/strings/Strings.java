@@ -226,6 +226,6 @@ public class Strings {
                 );
         }
 
-        return false;
+        return textHash == strHash;
     }
 }
