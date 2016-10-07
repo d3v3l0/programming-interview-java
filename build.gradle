@@ -1,4 +1,23 @@
+buildscript {
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+plugins {
+    id "me.champeau.gradle.jmh" version "0.3.1"
+}
+
 apply plugin: 'java'
+apply plugin: "me.champeau.gradle.jmh"
+
+jmh {
+    iterations = 3
+    warmupIterations = 5
+    fork = 5
+}
 
 group 'com.github.tkachuko.origramming.interview'
 version '0.0.1-SNAPSHOT'
@@ -8,7 +27,6 @@ repositories {
 }
 
 dependencies {
-
     testCompile "junit:junit:4.10"
     testCompile "pl.pragmatists:JUnitParams:1.0.5"
     testCompile "com.pholser:junit-quickcheck-core:0.6.1"

@@ -214,9 +214,10 @@ public class Strings {
         int textHash = textHashData.hash;
         int strHash = strHashData.hash;
 
-        for (int i = str.length(); i < text.length(); i++) {
+        for (int i = str.length(); i <= text.length(); i++) {
             if (textHash == strHash && text.substring(i - str.length(), i).equals(str))
                 return true;
+            else if (i == text.length()) return false;
             else
                 textHash = Hashing.rollingHash(
                         text.charAt(i - str.length()),
@@ -226,6 +227,6 @@ public class Strings {
                 );
         }
 
-        return textHash == strHash;
+        return false;
     }
 }

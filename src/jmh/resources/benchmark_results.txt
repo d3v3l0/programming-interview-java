@@ -1,0 +1,17 @@
+Benchmark                                                                     Mode  Cnt           Score           Error  Units
+Benchmarks.customContainsPerformanceCheckOnHugeTextWithHalfSubstring         thrpt   15  2717883285.669 ± 216566791.023  ops/s
+Benchmarks.customContainsPerformanceCheckOnHugeTextWithTenthSubstring        thrpt   15  2852884678.498 ±  89547045.542  ops/s
+Benchmarks.customContainsPerformanceCheckOnHugeTextWithThirdSubstring        thrpt   15  2931067796.425 ±  30037686.444  ops/s
+Benchmarks.customContainsPerformanceCheckOnHugeTextWithThousandsthSubstring  thrpt   15  2733796180.685 ±  92019493.530  ops/s
+Benchmarks.javaContainsPerformanceCheckOnHugeTextWithHalfSubstring           thrpt   15           4.492 ±         0.867  ops/s
+Benchmarks.javaContainsPerformanceCheckOnHugeTextWithTenthSubstring          thrpt   15           4.929 ±         0.132  ops/s
+Benchmarks.javaContainsPerformanceCheckOnHugeTextWithThirdSubstring          thrpt   15           4.866 ±         0.097  ops/s
+Benchmarks.javaContainsPerformanceCheckOnHugeTextWithThousandsthSubstring    thrpt   15           4.617 ±         0.614  ops/s
+Benchmarks.customContainsPerformanceCheckOnHugeTextWithHalfSubstring          avgt   15          ≈ 10⁻⁹                   s/op
+Benchmarks.customContainsPerformanceCheckOnHugeTextWithTenthSubstring         avgt   15          ≈ 10⁻⁹                   s/op
+Benchmarks.customContainsPerformanceCheckOnHugeTextWithThirdSubstring         avgt   15          ≈ 10⁻⁹                   s/op
+Benchmarks.customContainsPerformanceCheckOnHugeTextWithThousandsthSubstring   avgt   15          ≈ 10⁻⁹                   s/op
+Benchmarks.javaContainsPerformanceCheckOnHugeTextWithHalfSubstring            avgt   15           0.207 ±         0.008   s/op
+Benchmarks.javaContainsPerformanceCheckOnHugeTextWithTenthSubstring           avgt   15           0.218 ±         0.052   s/op
+Benchmarks.javaContainsPerformanceCheckOnHugeTextWithThirdSubstring           avgt   15           0.216 ±         0.006   s/op
+Benchmarks.javaContainsPerformanceCheckOnHugeTextWithThousandsthSubstring     avgt   15           0.189 ±         0.009   s/op
