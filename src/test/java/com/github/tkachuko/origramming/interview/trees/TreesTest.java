@@ -79,10 +79,10 @@ public class TreesTest {
                         ),
                         node(
                                 2,
-                                3,
-                                4
+                                4,
+                                3
                         )
                 );
-        assertTrue(isBalanced(tree));
+        assertTrue(isSymmetric(tree));
     }
 }
