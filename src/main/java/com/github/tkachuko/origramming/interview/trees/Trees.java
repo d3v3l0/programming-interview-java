@@ -37,4 +37,47 @@ public class Trees {
                     isMirrored(left.right, right.left);
         else return false;
     }
+
+    /**
+     * Defines the lowest common ancestor of two nodes
+     *
+     * @param root   of tree
+     * @param first  node to look ancestor for
+     * @param second node to look ancestor for
+     * @param <T>    type of elements in tree
+     * @return LCA or null if not found
+     */
+    public static <T> BinaryTreeNode<T> lowestCommonAncestor(BinaryTreeNode<T> root,
+                                                             BinaryTreeNode<T> first,
+                                                             BinaryTreeNode<T> second) {
+        return LCAHelper(root, first, second).ancestor;
+    }
+
+    private static class LCAData<T> {
+        public final int numberOfTargetNodesMet;
+        public final BinaryTreeNode<T> ancestor;
+
+        public LCAData(int numberOfTargetNodesMet, BinaryTreeNode<T> ancestor) {
+            this.numberOfTargetNodesMet = numberOfTargetNodesMet;
+            this.ancestor = ancestor;
+        }
+    }
+
+    private static <T> LCAData<T> LCAHelper(BinaryTreeNode<T> root,
+                                            BinaryTreeNode<T> first,
+                                            BinaryTreeNode<T> second) {
+        if (root == null) return new LCAData<>(0, null);
+
+        LCAData<T> leftData = LCAHelper(root.left, first, second);
+        if (leftData.numberOfTargetNodesMet == 2) return leftData;
+
+        LCAData<T> rightData = LCAHelper(root.right, first, second);
+        if (rightData.numberOfTargetNodesMet == 2) return rightData;
+
+        int totalTargetNodesMet = leftData.numberOfTargetNodesMet +
+                rightData.numberOfTargetNodesMet +
+                (root == first ? 1 : 0) + (root == second ? 1 : 0);
+
+        return new LCAData<>(totalTargetNodesMet, totalTargetNodesMet == 2 ? root : null);
+    }
 }

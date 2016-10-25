@@ -46,4 +46,11 @@ public class BinaryTreeNode<T> {
         int leftHeight = hasLeft() ? left.height() : 0;
         return 1 + Math.max(rightHeight, leftHeight);
     }
+
+    @Override
+    public String toString() {
+        return "BinaryTreeNode{" +
+                "data=" + data +
+                '}';
+    }
 }

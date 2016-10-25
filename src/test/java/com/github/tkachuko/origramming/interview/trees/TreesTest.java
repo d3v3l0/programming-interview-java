@@ -4,10 +4,8 @@ import org.junit.Test;
 
 import static com.github.tkachuko.origramming.interview.trees.BinaryTreeNode.node;
 import static com.github.tkachuko.origramming.interview.trees.BinaryTreeNode.tree;
-import static com.github.tkachuko.origramming.interview.trees.Trees.isBalanced;
-import static com.github.tkachuko.origramming.interview.trees.Trees.isSymmetric;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static com.github.tkachuko.origramming.interview.trees.Trees.*;
+import static org.junit.Assert.*;
 
 public class TreesTest {
 
@@ -84,5 +82,41 @@ public class TreesTest {
                         )
                 );
         assertTrue(isSymmetric(tree));
+    }
+
+    @Test
+    public void shouldReturnRootAsLCA() {
+        BinaryTreeNode<Integer> left = node(2, 3, 4);
+        BinaryTreeNode<Integer> right = node(2, 4, 3);
+        BinaryTreeNode<Integer> root = tree(1, left, right);
+        assertEquals(root, lowestCommonAncestor(root, left, right));
+    }
+
+    @Test
+    public void shouldReturnFirstChildAsLCA() {
+        BinaryTreeNode<Integer> first = node(15);
+        BinaryTreeNode<Integer> second = node(16);
+        BinaryTreeNode<Integer> left = tree(2, first, second);
+        BinaryTreeNode<Integer> root = tree(1, left, node(2, 4, 3));
+        assertEquals(left, lowestCommonAncestor(root, first, second));
+    }
+
+    @Test
+    public void shouldReturnRootAsLCAOfNodesFromDifferentSubtrees() {
+        BinaryTreeNode<Integer> first = node(18);
+        BinaryTreeNode<Integer> second = node(12);
+        BinaryTreeNode<Integer> left = tree(2, node(3), first);
+        BinaryTreeNode<Integer> right = tree(2, node(4), second);
+        BinaryTreeNode<Integer> root = tree(1, left, right);
+        assertEquals(root, lowestCommonAncestor(root, first, second));
+    }
+
+    @Test
+    public void shouldReturnRootAsLCAOfNodesFromDifferentLevels() {
+        BinaryTreeNode<Integer> target = node(18);
+        BinaryTreeNode<Integer> left = tree(2, target, node(18));
+        BinaryTreeNode<Integer> right = tree(2, node(4), node(5));
+        BinaryTreeNode<Integer> root = tree(1, left, right);
+        assertEquals(left, lowestCommonAncestor(root, left, target));
     }
 }
