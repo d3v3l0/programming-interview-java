@@ -119,4 +119,76 @@ public class TreesTest {
         BinaryTreeNode<Integer> root = tree(1, left, right);
         assertEquals(left, lowestCommonAncestor(root, left, target));
     }
+
+    @Test
+    public void shouldFindLeftMostLeafAsSum() {
+        BinaryTreeNode<Integer> tree =
+                tree(1,
+                        node(
+                                2,
+                                3,
+                                4
+                        ),
+                        node(
+                                5,
+                                6,
+                                7
+                        )
+                );
+        assertTrue(hasPathWithSum(tree, 6));
+    }
+
+    @Test
+    public void shouldFindRightMostLeafAsSum() {
+        BinaryTreeNode<Integer> tree =
+                tree(1,
+                        node(
+                                2,
+                                3,
+                                4
+                        ),
+                        node(
+                                5,
+                                6,
+                                7
+                        )
+                );
+        assertTrue(hasPathWithSum(tree, 13));
+    }
+
+    @Test
+    public void shouldFindSumInTheMiddleLeaf() {
+        BinaryTreeNode<Integer> tree =
+                tree(1,
+                        node(
+                                2,
+                                3,
+                                4
+                        ),
+                        node(
+                                5,
+                                6,
+                                7
+                        )
+                );
+        assertTrue(hasPathWithSum(tree, 12));
+    }
+
+    @Test
+    public void shouldNotFindSum() {
+        BinaryTreeNode<Integer> tree =
+                tree(1,
+                        node(
+                                2,
+                                3,
+                                4
+                        ),
+                        node(
+                                5,
+                                6,
+                                7
+                        )
+                );
+        assertFalse(hasPathWithSum(tree, 28));
+    }
 }

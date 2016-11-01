@@ -80,4 +80,11 @@ public class Trees {
 
         return new LCAData<>(totalTargetNodesMet, totalTargetNodesMet == 2 ? root : null);
     }
+
+    public static boolean hasPathWithSum(BinaryTreeNode<Integer> root, int targetSum) {
+        int remaining = targetSum - (root == null ? 0 : root.data);
+        if (root == null) return false;
+        else if (root.isLeaf()) return remaining == 0;
+        else return hasPathWithSum(root.left, remaining) || hasPathWithSum(root.right, remaining);
+    }
 }
