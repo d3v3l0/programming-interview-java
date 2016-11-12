@@ -2,6 +2,8 @@ package com.github.tkachuko.origramming.interview.trees;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static com.github.tkachuko.origramming.interview.trees.BinaryTreeNode.node;
 import static com.github.tkachuko.origramming.interview.trees.BinaryTreeNode.tree;
 import static com.github.tkachuko.origramming.interview.trees.Trees.*;
@@ -190,5 +192,22 @@ public class TreesTest {
                         )
                 );
         assertFalse(hasPathWithSum(tree, 28));
+    }
+
+    @Test
+    public void shouldReturnInOrderTraversal() {
+        BinaryTreeNode<Integer> tree = tree(10,
+                tree(
+                        12,
+                        node(3),
+                        node(4, 6, 7)
+                ),
+                tree(
+                        5,
+                        node(11),
+                        node(2)
+                )
+        );
+        assertEquals(Arrays.asList(3, 12, 6, 4, 7, 10, 11, 5, 2), inOrderTraversal(tree));
     }
 }

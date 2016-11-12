@@ -1,5 +1,7 @@
 package com.github.tkachuko.origramming.interview.trees;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Trees {
@@ -86,5 +88,21 @@ public class Trees {
         if (root == null) return false;
         else if (root.isLeaf()) return remaining == 0;
         else return hasPathWithSum(root.left, remaining) || hasPathWithSum(root.right, remaining);
+    }
+
+    public static <T> List<T> inOrderTraversal(BinaryTreeNode<T> root) {
+        ArrayList<T> result = new ArrayList<>();
+        inOrderTraversal(root, result);
+        return result;
+    }
+
+    public static <T> void inOrderTraversal(BinaryTreeNode<T> root, List<T> acc) {
+        if (root == null) return;
+        else if (root.isLeaf()) acc.add(root.data);
+        else {
+            inOrderTraversal(root.left, acc);
+            acc.add(root.data);
+            inOrderTraversal(root.right, acc);
+        }
     }
 }
