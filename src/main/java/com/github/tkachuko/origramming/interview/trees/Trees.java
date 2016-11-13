@@ -83,6 +83,13 @@ public class Trees {
         return new LCAData<>(totalTargetNodesMet, totalTargetNodesMet == 2 ? root : null);
     }
 
+    /**
+     * Given tree of integers. Define ia has given path from root to any of the leafs.
+     *
+     * @param root      of tree
+     * @param targetSum sum to be found
+     * @return if tree has given sum from root to any leafs
+     */
     public static boolean hasPathWithSum(BinaryTreeNode<Integer> root, int targetSum) {
         int remaining = targetSum - (root == null ? 0 : root.data);
         if (root == null) return false;
@@ -90,19 +97,58 @@ public class Trees {
         else return hasPathWithSum(root.left, remaining) || hasPathWithSum(root.right, remaining);
     }
 
+    /**
+     * Collects data from the nodes of a tree to the list in in-order traversal
+     *
+     * @param root of tree
+     * @param <T>  type of elements
+     * @return all node data in in-order traversal
+     */
     public static <T> List<T> inOrderTraversal(BinaryTreeNode<T> root) {
         ArrayList<T> result = new ArrayList<>();
-        inOrderTraversal(root, result);
+        inOrderTraversalHelper(root, result);
         return result;
     }
 
-    public static <T> void inOrderTraversal(BinaryTreeNode<T> root, List<T> acc) {
+    private static <T> void inOrderTraversalHelper(BinaryTreeNode<T> root, List<T> acc) {
         if (root == null) return;
         else if (root.isLeaf()) acc.add(root.data);
         else {
-            inOrderTraversal(root.left, acc);
+            inOrderTraversalHelper(root.left, acc);
             acc.add(root.data);
-            inOrderTraversal(root.right, acc);
+            inOrderTraversalHelper(root.right, acc);
+        }
+    }
+
+    /**
+     * Computes exterior of tree. Exterior is path from root to leftmost child, leaves, path from root to
+     * rightmost child.
+     *
+     * @param root of the tree
+     * @param <T>  type of elements
+     * @return exterior of tree
+     */
+    public static <T> List<T> exteriorOfTree(BinaryTreeNode<T> root) {
+        ArrayList<T> result = new ArrayList<>();
+        rootToSideLeafPath(root, true, result);
+        allLeafs(root, result);
+        rootToSideLeafPath(root, false, result);
+        return result;
+    }
+
+    private static <T> void allLeafs(BinaryTreeNode<T> root, List<T> acc) {
+        if (root == null) return;
+        else if (root.isLeaf()) acc.add(root.data);
+        else {
+            allLeafs(root.left, acc);
+            allLeafs(root.right, acc);
+        }
+    }
+
+    private static <T> void rootToSideLeafPath(BinaryTreeNode<T> root, boolean leftRoute, List<T> acc) {
+        if (root != null && !root.isLeaf()) {
+            acc.add(root.data);
+            rootToSideLeafPath(leftRoute ? root.left : root.right, leftRoute, acc);
         }
     }
 }

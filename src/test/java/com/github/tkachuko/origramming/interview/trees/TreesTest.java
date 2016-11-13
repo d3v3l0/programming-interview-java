@@ -210,4 +210,21 @@ public class TreesTest {
         );
         assertEquals(Arrays.asList(3, 12, 6, 4, 7, 10, 11, 5, 2), inOrderTraversal(tree));
     }
+
+    @Test
+    public void shouldReturnExteriorOfTree() {
+        BinaryTreeNode<Integer> tree = tree(10,
+                tree(
+                        12,
+                        node(3),
+                        node(4, 6, 7)
+                ),
+                tree(
+                        5,
+                        node(11),
+                        node(2)
+                )
+        );
+        assertEquals(Arrays.asList(10, 12, 3, 6, 7, 11, 2, 10, 5), exteriorOfTree(tree));
+    }
 }
