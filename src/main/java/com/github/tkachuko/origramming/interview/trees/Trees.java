@@ -1,8 +1,6 @@
 package com.github.tkachuko.origramming.interview.trees;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Trees {
 
@@ -149,6 +147,36 @@ public class Trees {
         if (root != null && !root.isLeaf()) {
             acc.add(root.data);
             rootToSideLeafPath(leftRoute ? root.left : root.right, leftRoute, acc);
+        }
+    }
+
+    /**
+     * Computes mapping of every node to the next node to the right on this level.
+     * Works for unique data and perfect trees only.
+     *
+     * @param root of the tree
+     * @param <T>  type of elements in tree
+     * @return mapping of every node to the next node to the right on this level
+     */
+    public static <T> Map<BinaryTreeNode<T>, BinaryTreeNode<T>> leftTheRightLevelMapping(BinaryTreeNode<T> root) {
+        HashMap<BinaryTreeNode<T>, BinaryTreeNode<T>> result = new HashMap<>();
+        while (root != null && root.hasLeft()) {
+            leftToRightLevelMapping(root, result);
+            root = root.left;
+        }
+        return result;
+    }
+
+    private static <T> void leftToRightLevelMapping(BinaryTreeNode<T> leftmostOfTheLevel,
+                                                   Map<BinaryTreeNode<T>, BinaryTreeNode<T>> acc) {
+        while (leftmostOfTheLevel != null) {
+            acc.put(leftmostOfTheLevel.left, leftmostOfTheLevel.right);
+
+            if (acc.containsKey(leftmostOfTheLevel)) {
+                acc.put(leftmostOfTheLevel.right, acc.get(leftmostOfTheLevel).left);
+            }
+
+            leftmostOfTheLevel = acc.get(leftmostOfTheLevel);
         }
     }
 }

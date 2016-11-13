@@ -53,4 +53,20 @@ public class BinaryTreeNode<T> {
                 "data=" + data +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BinaryTreeNode<?> that = (BinaryTreeNode<?>) o;
+
+        return data.equals(that.data);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return data.hashCode();
+    }
 }

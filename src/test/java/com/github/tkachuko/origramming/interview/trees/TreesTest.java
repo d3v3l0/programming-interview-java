@@ -3,10 +3,14 @@ package com.github.tkachuko.origramming.interview.trees;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.github.tkachuko.origramming.interview.trees.BinaryTreeNode.node;
 import static com.github.tkachuko.origramming.interview.trees.BinaryTreeNode.tree;
 import static com.github.tkachuko.origramming.interview.trees.Trees.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
 import static org.junit.Assert.*;
 
 public class TreesTest {
@@ -226,5 +230,48 @@ public class TreesTest {
                 )
         );
         assertEquals(Arrays.asList(10, 12, 3, 6, 7, 11, 2, 10, 5), exteriorOfTree(tree));
+    }
+
+    @Test
+    public void shouldComputeLeftToRightMappingInPerfectTree() {
+        BinaryTreeNode<Integer> tree =
+                tree(1,
+                        tree(
+                                2,
+                                node(
+                                        3,
+                                        4,
+                                        5
+                                ),
+                                node(
+                                        6,
+                                        7,
+                                        8
+                                )
+                        ),
+                        tree(
+                                20,
+                                node(
+                                        23,
+                                        24,
+                                        25
+                                ),
+                                node(
+                                        26,
+                                        27,
+                                        28
+                                )
+                        )
+                );
+        Map<Integer, Integer> valuesMapping = leftTheRightLevelMapping(tree)
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(e -> e.getKey().data, e -> e.getValue().data));
+
+        assertThat(valuesMapping).containsOnly(
+                entry(2, 20),
+                entry(3, 6), entry(6, 23), entry(23, 26),
+                entry(4, 5), entry(5, 7), entry(7, 8), entry(8, 24), entry(24, 25), entry(25, 27), entry(27, 28)
+        );
     }
 }

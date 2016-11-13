@@ -14,4 +14,5 @@ dependencies {
     testCompile "com.pholser:junit-quickcheck-core:0.6.1"
     testCompile "com.pholser:junit-quickcheck-generators:0.6.1"
     testCompile "org.slf4j:slf4j-log4j12:1.7.21"
+    testCompile "org.assertj:assertj-core:3.5.2"
 }
