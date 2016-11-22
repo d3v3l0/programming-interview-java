@@ -66,4 +66,20 @@ public class SearchTest {
                 new Object[]{asList(1, 1, 2, 2, 4, 4, 5, 5), 1}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldFindFirstAndLastOccurrenceOfElementInList(List<Integer> list, int element) {
+        assertThat(occurrenceIntervalInSorted(list, element))
+                .containsExactly(list.indexOf(element), list.lastIndexOf(element));
+    }
+
+    private static Object parametersForShouldFindFirstAndLastOccurrenceOfElementInList() {
+        return new Object[]{
+                new Object[]{asList(1, 1, 1, 1, 1, 1, 2, 2, 2, 4, 4, 4, 4, 5, 5, 5), 1},
+                new Object[]{asList(1, 1, 1, 1, 1, 1, 2, 2, 2, 4, 4, 4, 4, 5, 5, 5), 2},
+                new Object[]{asList(1, 1, 1, 1, 1, 1, 2, 2, 2, 4, 4, 4, 4, 5, 5, 5), 4},
+                new Object[]{asList(1, 1, 1, 1, 1, 1, 2, 2, 2, 4, 4, 4, 4, 5, 5, 5), 5}
+        };
+    }
 }

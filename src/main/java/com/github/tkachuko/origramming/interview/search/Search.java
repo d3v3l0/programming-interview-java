@@ -27,6 +27,28 @@ public class Search {
     }
 
     /**
+     * Finds index of last element occurrence in a sorted list
+     *
+     * @param list    sorted list
+     * @param element to find
+     * @return index of last element occurrence or -1
+     */
+    public static int lastIndexOfInSorted(List<Integer> list, int element) {
+        int start = 0, end = list.size() - 1, result = -1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            int current = list.get(mid);
+            if (current > element) end = mid - 1;
+            else if (current < element) start = mid + 1;
+            else {
+                result = mid;
+                start = mid + 1;
+            }
+        }
+        return result;
+    }
+
+    /**
      * Finds local minima in list ascending from left to right and descending from right to left
      *
      * @param list of integers
@@ -68,5 +90,16 @@ public class Search {
             }
         }
         return result;
+    }
+
+    /**
+     * Returns two integers where first is index of first pivot occurrence and second - its last
+     *
+     * @param list    sorted array
+     * @param element occurrences to look for
+     * @return first and last index of pivot occurrence or [-1, -1]
+     */
+    public static int[] occurrenceIntervalInSorted(List<Integer> list, int element) {
+        return new int[]{indexOfInSorted(list, element), lastIndexOfInSorted(list, element)};
     }
 }
