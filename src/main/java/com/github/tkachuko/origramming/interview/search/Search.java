@@ -48,4 +48,25 @@ public class Search {
         }
         return -1;
     }
+
+    /**
+     * Searches for the first element that is greater than pivot in sorted array
+     *
+     * @param list  sorted array
+     * @param pivot element to search greater
+     * @return first element that is greater than pivot or pivot if not found
+     */
+    public static int firstGreaterInSorted(List<Integer> list, int pivot) {
+        int start = 0, end = list.size() - 1, result = pivot;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            int current = list.get(mid);
+            if (current <= pivot) start = mid + 1;
+            else {
+                result = current;
+                end = mid - 1;
+            }
+        }
+        return result;
+    }
 }

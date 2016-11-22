@@ -7,8 +7,7 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import static com.github.tkachuko.origramming.interview.search.Search.indexOfInSorted;
-import static com.github.tkachuko.origramming.interview.search.Search.localMinima;
+import static com.github.tkachuko.origramming.interview.search.Search.*;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -46,6 +45,25 @@ public class SearchTest {
                 new Object[]{asList(1, 2, 3, 2, 5, 6, 7), 2},
                 new Object[]{asList(1, -8, 3, 5, 6), -8},
                 new Object[]{asList(1, -10, 3, 4, 5, 6), -10}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldFindFirstGreaterThanPivotInSorted(List<Integer> list, int pivot) {
+        int last = list.lastIndexOf(pivot);
+        int greater = (last == list.size() - 1) ? pivot : list.get(last + 1);
+        assertThat(firstGreaterInSorted(list, pivot)).isEqualTo(greater);
+    }
+
+    private static Object parametersForShouldFindFirstGreaterThanPivotInSorted() {
+        return new Object[]{
+                new Object[]{asList(1, 2, 4, 5), 2},
+                new Object[]{asList(1, 2, 2, 4, 5), 2},
+                new Object[]{asList(1, 2, 2, 4, 5), 4},
+                new Object[]{asList(1, 2, 2, 4, 5), 1},
+                new Object[]{asList(1, 2, 2, 4, 4, 55), 55},
+                new Object[]{asList(1, 1, 2, 2, 4, 4, 5, 5), 1}
         };
     }
 }
