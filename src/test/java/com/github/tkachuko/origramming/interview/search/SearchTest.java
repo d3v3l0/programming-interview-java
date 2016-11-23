@@ -6,6 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.github.tkachuko.origramming.interview.search.Search.*;
 import static java.util.Arrays.asList;
@@ -80,6 +83,24 @@ public class SearchTest {
                 new Object[]{asList(1, 1, 1, 1, 1, 1, 2, 2, 2, 4, 4, 4, 4, 5, 5, 5), 2},
                 new Object[]{asList(1, 1, 1, 1, 1, 1, 2, 2, 2, 4, 4, 4, 4, 5, 5, 5), 4},
                 new Object[]{asList(1, 1, 1, 1, 1, 1, 2, 2, 2, 4, 4, 4, 4, 5, 5, 5), 5}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldFindElementTheSameAsIndex(List<Integer> list) {
+        Set<Integer> result = IntStream.range(0, list.size())
+                .filter(i -> list.get(i) == i)
+                .boxed()
+                .collect(Collectors.toSet());
+        assertThat(elementAsIndexInSorted(list)).isIn(result);
+    }
+
+    private static Object parametersForShouldFindElementTheSameAsIndex() {
+        return new Object[]{
+                new Object[]{asList(0, 2, 3, 5)},
+                new Object[]{asList(0, 1, 2, 3)},
+                new Object[]{asList(-2, 0, 2, 3, 6, 8, 80, 90)}
         };
     }
 }

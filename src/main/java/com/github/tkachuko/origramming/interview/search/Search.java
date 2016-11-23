@@ -102,4 +102,25 @@ public class Search {
     public static int[] occurrenceIntervalInSorted(List<Integer> list, int element) {
         return new int[]{indexOfInSorted(list, element), lastIndexOfInSorted(list, element)};
     }
+
+    /**
+     * Finds first element such that is equal to its index in sorted array
+     *
+     * @param list sorted array
+     * @return element that is equal to its index
+     */
+    public static int elementAsIndexInSorted(List<Integer> list) {
+        int start = 0, end = list.size() - 1;
+        while (start <= end) {
+            int index = start + (end - start) / 2;
+            int element = list.get(index);
+            int indexDifference = element - index;
+
+            if (indexDifference == 0) return element;
+            else if (indexDifference > 0) end = index - 1;
+            else if (indexDifference < 0) start = index + 1;
+            else start = index + 1;
+        }
+        return -1;
+    }
 }
