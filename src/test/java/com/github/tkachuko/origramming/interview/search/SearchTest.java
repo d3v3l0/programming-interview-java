@@ -5,6 +5,7 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -101,6 +102,50 @@ public class SearchTest {
                 new Object[]{asList(0, 2, 3, 5)},
                 new Object[]{asList(0, 1, 2, 3)},
                 new Object[]{asList(-2, 0, 2, 3, 6, 8, 80, 90)}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldFindMinimumElementInShifted(List<Integer> list) {
+        assertThat(minimumInSortedShifted(list)).isEqualTo(Collections.min(list));
+    }
+
+    private static Object parametersForShouldFindMinimumElementInShifted() {
+        return new Object[]{
+                new Object[]{asList(0, 2, 3, 5)},
+                new Object[]{asList(5, 0, 2, 3)},
+                new Object[]{asList(3, 5, 0, 2)},
+                new Object[]{asList(2, 3, 5, 0)},
+                new Object[]{asList(5, 0, 2, 3, 4)},
+                new Object[]{asList(4, 5, 0, 2, 3)}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldFindPositionOfElementInSortedShifted(List<Integer> list, int element) {
+        assertThat(indexOfElementInSortedShifted(list, element)).isEqualTo(list.indexOf(element));
+    }
+
+    private static Object parametersForShouldFindPositionOfElementInSortedShifted() {
+        return new Object[]{
+                new Object[]{asList(0, 2, 3, 5), 0},
+                new Object[]{asList(0, 2, 3, 5), 2},
+                new Object[]{asList(0, 2, 3, 5), 3},
+                new Object[]{asList(0, 2, 3, 5), 5},
+                new Object[]{asList(5, 0, 2, 3), 5},
+                new Object[]{asList(5, 0, 2, 3), 0},
+                new Object[]{asList(5, 0, 2, 3), 2},
+                new Object[]{asList(5, 0, 2, 3), 3},
+                new Object[]{asList(3, 5, 0, 2), 3},
+                new Object[]{asList(3, 5, 0, 2), 5},
+                new Object[]{asList(3, 5, 0, 2), 0},
+                new Object[]{asList(3, 5, 0, 2), 2},
+                new Object[]{asList(2, 3, 5, 0), 2},
+                new Object[]{asList(2, 3, 5, 0), 3},
+                new Object[]{asList(2, 3, 5, 0), 5},
+                new Object[]{asList(2, 3, 5, 0), 0}
         };
     }
 }

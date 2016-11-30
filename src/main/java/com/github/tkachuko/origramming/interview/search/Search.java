@@ -123,4 +123,46 @@ public class Search {
         }
         return -1;
     }
+
+    /**
+     * Finds minimum in sorted unique shifted list
+     *
+     * @param list sorted unique shifted list
+     * @return minimum
+     */
+    public static int minimumInSortedShifted(List<Integer> list) {
+        int start = 0, end = list.size() - 1;
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            if (list.get(mid) < list.get(end)) end = mid;
+            else start = mid + 1;
+        }
+        return list.get(start);
+    }
+
+    /**
+     * Finds index of element in sorted unique shifted list
+     *
+     * @param list    sorted unique shifted list
+     * @param element to find
+     * @return index of element or -1
+     */
+    public static int indexOfElementInSortedShifted(List<Integer> list, int element) {
+        int left = 0, right = list.size() - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (element == list.get(mid)) return mid;
+
+            if (list.get(left) <= list.get(mid)) {
+                if (list.get(left) <= element && element < list.get(mid)) right = mid - 1;
+                else left = mid + 1;
+            } else {
+                if (list.get(mid) < element && element <= list.get(right)) left = mid + 1;
+                else right = mid - 1;
+            }
+        }
+
+        return -1;
+    }
 }
