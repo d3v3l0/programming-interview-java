@@ -24,4 +24,23 @@ public class HashTables {
         }
         return table.values();
     }
+
+    /**
+     * Finds out if input can ve permuted so that it forms a palindrome
+     *
+     * @param input any string
+     * @return if string can be permuted to be a palindrome
+     */
+    public static boolean canFormPalindrome(String input) {
+        Map<Character, Integer> frequency = new HashMap<>();
+        for (Character character : input.toCharArray()) {
+            frequency.computeIfAbsent(character, k -> 0);
+            frequency.computeIfPresent(character, (k, v) -> v + 1);
+        }
+        int odds = 0;
+        for (Map.Entry<Character, Integer> entry : frequency.entrySet()) {
+            if (entry.getValue() % 2 != 0 && ++odds > 1) return false;
+        }
+        return true;
+    }
 }
