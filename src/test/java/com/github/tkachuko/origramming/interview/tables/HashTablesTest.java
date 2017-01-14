@@ -9,8 +9,7 @@ import org.junit.runner.RunWith;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.github.tkachuko.origramming.interview.tables.HashTables.canFormPalindrome;
-import static com.github.tkachuko.origramming.interview.tables.HashTables.groupByAnagrams;
+import static com.github.tkachuko.origramming.interview.tables.HashTables.*;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @RunWith(JUnitParamsRunner.class)
@@ -57,6 +56,19 @@ public class HashTablesTest {
         return new Object[]{
                 new Object[]{"edified", true},
                 new Object[]{"mini", false}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldDetermineIfLetterCanBeComposedFromMagazine(String letter, String magazine, boolean isComposable) {
+        assertThat(isAnonymousLetterCreatedFrom(letter, magazine)).isEqualTo(isComposable);
+    }
+
+    public static Object parametersForShouldDetermineIfLetterCanBeComposedFromMagazine() {
+        return new Object[]{
+                new Object[]{"scary message", "gess me a rascy", true},
+                new Object[]{"another scary message", "some fashion stuff, yaky", false}
         };
     }
 }

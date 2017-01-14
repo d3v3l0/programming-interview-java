@@ -43,4 +43,28 @@ public class HashTables {
         }
         return true;
     }
+
+    /**
+     * Checks if anonymous letter can be composed from the magazine article (like in movies)
+     *
+     * @param letter   text of letter
+     * @param magazine text of magazine article
+     * @return if letter can be composed from magazine article
+     */
+    public static boolean isAnonymousLetterCreatedFrom(String letter, String magazine) {
+        Map<Character, Integer> count = new HashMap<>();
+        for (char character : letter.toCharArray()) {
+            count.computeIfAbsent(character, k -> 0);
+            count.computeIfPresent(character, (k, v) -> v + 1);
+        }
+        for (char character : magazine.toCharArray()) {
+            Integer current = count.get(character);
+            if (current != null && current > 0) {
+                count.put(character, current - 1);
+                current--;
+            }
+            if (current != null && current == 0) count.remove(character);
+        }
+        return count.isEmpty();
+    }
 }
