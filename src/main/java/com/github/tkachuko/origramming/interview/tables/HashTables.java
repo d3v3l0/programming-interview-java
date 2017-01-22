@@ -142,4 +142,45 @@ public class HashTables {
     public LRUCache<Integer, Integer> isbnCache(int capacity) {
         return new LRUCache<>(capacity);
     }
+
+    /**
+     * Finds the shortest sub-sequence containing all key words
+     *
+     * @param words    sequence of words
+     * @param keyWords to find in words
+     * @return indexes of shortest sub-sequence that contains all keywords
+     */
+    public static int[] smallestSubSequenceContaining(List<String> words, Set<String> keyWords) {
+        LinkedHashMap<String, Integer> dict = new LinkedHashMap<>();
+        keyWords.forEach(word -> dict.put(word, null));
+
+        int numberOfKeyWordsSeenSoFar = 0;
+
+        int start = -1, end = -1;
+        for (int wordIndexInSequence = 0; wordIndexInSequence < words.size(); wordIndexInSequence++) {
+            String word = words.get(wordIndexInSequence);
+
+            if (dict.containsKey(word)) {
+                Integer optimalWordPosition = dict.get(word);
+                if (optimalWordPosition == null) {
+                    numberOfKeyWordsSeenSoFar++;
+                }
+
+                dict.remove(word);
+                dict.put(word, wordIndexInSequence);
+            }
+
+            if (numberOfKeyWordsSeenSoFar == keyWords.size()) {
+                if ((start == -1 && end == -1) || wordIndexInSequence - firstValue(dict) < end - start) {
+                    start = firstValue(dict);
+                    end = wordIndexInSequence;
+                }
+            }
+        }
+        return new int[]{start, end};
+    }
+
+    private static <K, V> V firstValue(LinkedHashMap<K, V> map) {
+        return map.entrySet().stream().findFirst().map(Map.Entry::getValue).orElse(null);
+    }
 }

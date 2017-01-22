@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static com.github.tkachuko.origramming.interview.tables.HashTables.*;
@@ -69,6 +70,29 @@ public class HashTablesTest {
         return new Object[]{
                 new Object[]{"scary message", "gess me a rascy", true},
                 new Object[]{"another scary message", "some fashion stuff, yaky", false}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldFindSmallestSubsetThatCoversTextWithKeywords(List<String> words,
+                                                                   Set<String> keywords,
+                                                                   int[] indexes) {
+        assertThat(smallestSubSequenceContaining(words, keywords)).isEqualTo(indexes);
+    }
+
+    public static Object parametersForShouldFindSmallestSubsetThatCoversTextWithKeywords() {
+        return new Object[]{
+                new Object[]{
+                        Arrays.asList("banana", "slam", "brute", "something", "banana"),
+                        Arrays.asSet("banana", "something"),
+                        new int[]{3, 4}
+                },
+                new Object[]{
+                        Arrays.asList("banana", "slam", "brute", "something"),
+                        Arrays.asSet("banana", "something"),
+                        new int[]{0, 3}
+                }
         };
     }
 }
