@@ -150,7 +150,7 @@ public class HashTables {
      * @param keyWords to find in words
      * @return indexes of shortest sub-sequence that contains all keywords
      */
-    public static int[] smallestSubSequenceContaining(List<String> words, Set<String> keyWords) {
+    public static int[] shortestSubSequenceCovering(List<String> words, Set<String> keyWords) {
         LinkedHashMap<String, Integer> dict = new LinkedHashMap<>();
         keyWords.forEach(word -> dict.put(word, null));
 

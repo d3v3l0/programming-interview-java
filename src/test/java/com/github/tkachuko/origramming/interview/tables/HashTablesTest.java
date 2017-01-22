@@ -75,13 +75,13 @@ public class HashTablesTest {
 
     @Test
     @Parameters
-    public void shouldFindSmallestSubsetThatCoversTextWithKeywords(List<String> words,
+    public void shouldFindShortestSubSequenceThatCoversKeywords(List<String> words,
                                                                    Set<String> keywords,
                                                                    int[] indexes) {
-        assertThat(smallestSubSequenceContaining(words, keywords)).isEqualTo(indexes);
+        assertThat(shortestSubSequenceCovering(words, keywords)).isEqualTo(indexes);
     }
 
-    public static Object parametersForShouldFindSmallestSubsetThatCoversTextWithKeywords() {
+    public static Object parametersForShouldFindShortestSubSequenceThatCoversKeywords() {
         return new Object[]{
                 new Object[]{
                         Arrays.asList("banana", "slam", "brute", "something", "banana"),
