@@ -171,8 +171,12 @@ public class HashTables {
             }
 
             if (numberOfKeyWordsSeenSoFar == keyWords.size()) {
-                if ((start == -1 && end == -1) || wordIndexInSequence - firstValue(dict) < end - start) {
-                    start = firstValue(dict);
+                Integer startIndexOfCurrentSequence = firstValue(dict);
+                int lengthOfCurrentSequence = wordIndexInSequence - startIndexOfCurrentSequence;
+
+                int lengthOfShortestSequence = end - start;
+                if ((start == -1 && end == -1) || lengthOfCurrentSequence < lengthOfShortestSequence) {
+                    start = startIndexOfCurrentSequence;
                     end = wordIndexInSequence;
                 }
             }
