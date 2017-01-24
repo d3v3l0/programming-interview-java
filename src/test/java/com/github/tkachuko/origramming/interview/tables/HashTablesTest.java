@@ -76,8 +76,8 @@ public class HashTablesTest {
     @Test
     @Parameters
     public void shouldFindShortestSubSequenceThatCoversKeywords(List<String> words,
-                                                                   Set<String> keywords,
-                                                                   int[] indexes) {
+                                                                Set<String> keywords,
+                                                                int[] indexes) {
         assertThat(shortestSubSequenceCovering(words, keywords)).isEqualTo(indexes);
     }
 
@@ -93,6 +93,20 @@ public class HashTablesTest {
                         Arrays.asSet("banana", "something"),
                         new int[]{0, 3}
                 }
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldFindLongestSubArrayWithDistinctElements(List<Integer> array, int length) {
+        assertThat(lengthOfLongestSubArrayWithDistinctValues(array)).isEqualTo(length);
+    }
+
+    public static Object parametersForShouldFindLongestSubArrayWithDistinctElements() {
+        return new Object[]{
+                new Object[]{Arrays.asList(0, 1, 3, 2, 4, 2, 8, 6, 7, 2, 1, 0, 3, 4, 5), 9},
+                new Object[]{Arrays.asList(1, 2, 3, 4, 5), 5},
+                new Object[]{Arrays.asList(0, 1, 2, 3, 4, 4, 5, 4, 6), 5}
         };
     }
 }

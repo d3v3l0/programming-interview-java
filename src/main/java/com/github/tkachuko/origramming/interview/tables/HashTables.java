@@ -161,8 +161,8 @@ public class HashTables {
             String word = words.get(wordIndexInSequence);
 
             if (dict.containsKey(word)) {
-                Integer optimalWordPosition = dict.get(word);
-                if (optimalWordPosition == null) {
+                Integer lastKnownPosition = dict.get(word);
+                if (lastKnownPosition == null) {
                     numberOfKeyWordsSeenSoFar++;
                 }
 
@@ -182,5 +182,26 @@ public class HashTables {
 
     private static <K, V> V firstValue(LinkedHashMap<K, V> map) {
         return map.entrySet().stream().findFirst().map(Map.Entry::getValue).orElse(null);
+    }
+
+    /**
+     * Finds the length of longest sub-array that contains distinct values from given array
+     *
+     * @param array with duplicates
+     * @return length of longest sub-array that contains distinct values from given array
+     */
+    public static int lengthOfLongestSubArrayWithDistinctValues(List<Integer> array) {
+        Map<Integer, Integer> visitedElements = new HashMap<>();
+        int startIndexOfResult = 0, lengthOfResult = 0;
+
+        for (int i = 0; i < array.size(); i++) {
+            Integer lastKnownOccurrence = visitedElements.put(array.get(i), i);
+            if (lastKnownOccurrence != null && lastKnownOccurrence >= startIndexOfResult) {
+                lengthOfResult = Math.max(lengthOfResult, i - startIndexOfResult);
+                startIndexOfResult = lastKnownOccurrence + 1;
+            }
+        }
+
+        return Math.max(lengthOfResult, array.size() - startIndexOfResult);
     }
 }
