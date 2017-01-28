@@ -208,4 +208,36 @@ public class HashTables {
 
         return Math.max(lengthOfResult, array.size() - startIndexOfResult);
     }
+
+    /**
+     * Computes the max length of subsequent values range (..., x-2, x-1, x, x+1, x+2, ...) in given array
+     *
+     * @param array any
+     * @return max length of subsequent values range in given array
+     */
+    public static int lengthOfLongestRangeInArray(List<Integer> array) {
+        Set<Integer> unvisited = new HashSet<>(array);
+
+        int maxRangeLength = 0;
+        while (!unvisited.isEmpty()) {
+            int element = unvisited.iterator().next();
+            unvisited.remove(element);
+
+            int lower = element - 1;
+            while (unvisited.contains(lower)) {
+                unvisited.remove(lower);
+                --lower;
+            }
+
+            int upper = element + 1;
+            while (unvisited.contains(upper)) {
+                unvisited.remove(upper);
+                ++upper;
+            }
+
+            maxRangeLength = Math.max(maxRangeLength, upper - lower - 1);
+        }
+
+        return maxRangeLength;
+    }
 }
