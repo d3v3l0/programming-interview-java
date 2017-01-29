@@ -240,4 +240,40 @@ public class HashTables {
 
         return maxRangeLength;
     }
+
+    /**
+     * Find the student with highest average specified number of scores
+     *
+     * @param scores                      stream of pairs where first element is student ID and second - his score
+     * @param numberOfTopScoresToConsider defines how many top results for each student to consider
+     * @return the student with highest average specified number of scores
+     */
+    public static String studentWithMaximumAverageTopScores(Iterator<AbstractMap.SimpleImmutableEntry<String, Integer>> scores,
+                                                            int numberOfTopScoresToConsider) {
+        Map<String, PriorityQueue<Integer>> studentIdToHeapOfScores = new HashMap<>();
+        while (scores.hasNext()) {
+            Map.Entry<String, Integer> student = scores.next();
+            String id = student.getKey();
+            int score = student.getValue();
+
+            PriorityQueue<Integer> studentTopScores = studentIdToHeapOfScores
+                    .computeIfAbsent(id, k -> new PriorityQueue<>());
+            studentTopScores.add(score);
+
+            if (studentTopScores.size() > numberOfTopScoresToConsider) studentTopScores.poll();
+        }
+
+        String studentId = null;
+        int bestScoresSumSeenSoFar = 0;
+
+        for (Map.Entry<String, PriorityQueue<Integer>> studentResults : studentIdToHeapOfScores.entrySet()) {
+            int studentSum = studentResults.getValue().stream().mapToInt(score -> score).sum();
+            if (studentSum > bestScoresSumSeenSoFar) {
+                studentId = studentResults.getKey();
+                bestScoresSumSeenSoFar = studentSum;
+            }
+        }
+
+        return studentId;
+    }
 }

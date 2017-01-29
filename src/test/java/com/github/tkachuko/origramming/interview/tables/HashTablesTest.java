@@ -6,9 +6,7 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.github.tkachuko.origramming.interview.tables.HashTables.*;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -121,6 +119,37 @@ public class HashTablesTest {
                 new Object[]{Arrays.asList(0, 1, 3, 2, 4, 2, 8, 6, 7, 2, 1, 0, 3, 4, 5), 9},
                 new Object[]{Arrays.asList(-1, -1, 1, 100, 12, 0, 3, 2, -1), 5},
                 new Object[]{Arrays.asList(1, 1, 1, 1), 1}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void shouldFindStudentWithMaximumAverageTopScores(Map<String, List<Integer>> scores,
+                                                             int numberOfScoresToConsider,
+                                                             String topStudent) {
+        Iterator<AbstractMap.SimpleImmutableEntry<String, Integer>> data =
+                scores
+                        .entrySet()
+                        .stream()
+                        .flatMap(entry ->
+                                entry.getValue().stream().map(score ->
+                                        new AbstractMap.SimpleImmutableEntry<>(entry.getKey(), score))
+                        )
+                        .iterator();
+        assertThat(studentWithMaximumAverageTopScores(data, numberOfScoresToConsider)).isEqualTo(topStudent);
+    }
+
+    public static Object parametersForShouldFindStudentWithMaximumAverageTopScores() {
+        return new Object[]{
+                new Object[]{
+                        new HashMap<String, List<Integer>>() {{
+                            put("Sam", Arrays.asList(99, 98, 10, 10, 32));
+                            put("Frodo", Arrays.asList(91, 88));
+                            put("Bilbo", Arrays.asList(10, 25, 40, 90, 99, 99));
+                        }},
+                        3,
+                        "Bilbo"
+                }
         };
     }
 }
