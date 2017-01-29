@@ -2,6 +2,8 @@ package com.github.tkachuko.origramming.interview.tables;
 
 import java.util.*;
 
+import static java.util.AbstractMap.SimpleImmutableEntry;
+
 public class HashTables {
 
     /**
@@ -248,7 +250,7 @@ public class HashTables {
      * @param numberOfTopScoresToConsider defines how many top results for each student to consider
      * @return the student with highest average specified number of scores
      */
-    public static String studentWithMaximumAverageTopScores(Iterator<AbstractMap.SimpleImmutableEntry<String, Integer>> scores,
+    public static String studentWithMaximumAverageTopScores(Iterator<SimpleImmutableEntry<String, Integer>> scores,
                                                             int numberOfTopScoresToConsider) {
         Map<String, PriorityQueue<Integer>> studentIdToHeapOfScores = new HashMap<>();
         while (scores.hasNext()) {
@@ -275,5 +277,36 @@ public class HashTables {
         }
 
         return studentId;
+    }
+
+    /**
+     * Tests if all numbers from 1 to given limit satisfy Collatz conjecture
+     *
+     * @param limit upper limit of numbers to check
+     * @return if all numbers from 1 to given limit satisfy Collatz conjecture
+     */
+    public static boolean testCollatzConjecture(int limit) {
+        Set<Integer> verified = new HashSet<>();
+        verified.add(1);
+
+        for (int number = 2; number <= limit; number++) {
+            if (!verified.contains(number)) {
+                Set<Integer> steps = new HashSet<>();
+                int currentDecompositionStep = number;
+                steps.add(currentDecompositionStep);
+
+                while (!verified.contains(currentDecompositionStep)) {
+                    currentDecompositionStep = collatzConjectureStep(currentDecompositionStep);
+                    if (steps.contains(currentDecompositionStep)) return false;
+                    else steps.add(currentDecompositionStep);
+                }
+                verified.addAll(steps);
+            }
+        }
+        return true;
+    }
+
+    private static int collatzConjectureStep(int number) {
+        return number % 2 == 1 ? 3 * number + 1 : number / 2;
     }
 }

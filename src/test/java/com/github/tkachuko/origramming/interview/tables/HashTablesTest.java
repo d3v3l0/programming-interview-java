@@ -152,4 +152,10 @@ public class HashTablesTest {
                 }
         };
     }
+
+    @Test
+    @Parameters({"10", "20", "40"})
+    public void shouldConfirmCollatzConjecture(int limit) {
+        assertThat(testCollatzConjecture(limit)).isTrue();
+    }
 }
