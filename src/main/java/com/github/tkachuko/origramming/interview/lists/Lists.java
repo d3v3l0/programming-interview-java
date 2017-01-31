@@ -75,8 +75,7 @@ public class Lists {
      * @return reversed linked list
      */
     public static <T> Node<T> reverseRecursively(Node<T> head) {
-        if (head == null) return null;
-        if (head.tail == null) return head;
+        if (head == null || head.tail == null) return head;
 
         Node<T> reversed = reverseRecursively(head.tail);
 
