@@ -35,6 +35,20 @@ public class ListsTest {
 
     @Test
     @Parameters
+    public void shouldFindIfListIsPalindrome(List<Integer> list, boolean isPalindrome) {
+        assertEquals(isPalindrome, isPalindrome(from(list)));
+    }
+
+    public static Object parametersForShouldFindIfListIsPalindrome() {
+        return new Object[]{
+                new Object[]{asList(1, 2, 3, 3, 2, 1), true},
+                new Object[]{asList(1, 2, 3, 4, 3, 2, 1), true},
+                new Object[]{asList(1, 2, 1, 4, 3, 2, 1), false}
+        };
+    }
+
+    @Test
+    @Parameters
     public void shouldDetectCyclesInList(Node<Integer> list, boolean hasCycle, Integer cycleStartElement) {
         Node<Integer> cycleStart = cycleStart(list);
         if (hasCycle) {

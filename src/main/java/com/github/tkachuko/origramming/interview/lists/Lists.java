@@ -151,6 +151,29 @@ public class Lists {
     }
 
     /**
+     * Checks if linked list is palindrome
+     *
+     * @param head of list
+     * @param <T>  type of elements
+     * @return if linked list is palindrome
+     */
+    public static <T> boolean isPalindrome(Node<T> head) {
+        Node<T> slow = head;
+        Node<T> fast = head;
+        while (fast != null && fast.tail != null) {
+            slow = slow.tail;
+            fast = fast.tail.tail;
+        }
+        Node<T> reversed = reverseRecursively(slow);
+        while (reversed != null && head != null) {
+            if (!reversed.data.equals(head.data)) return false;
+            head = head.tail;
+            reversed = reversed.tail;
+        }
+        return true;
+    }
+
+    /**
      * Determines if list has a cycle and returns start of the cycle or null if no cycle detected
      *
      * @param head list
