@@ -36,4 +36,72 @@ public class Sorting {
 
         return result;
     }
+
+    public static class Interval {
+        public final int left, right;
+
+        public static Interval of(int left, int right) {
+            return new Interval(left, right);
+        }
+
+        public Interval(int left, int right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Interval interval = (Interval) o;
+
+            if (left != interval.left) return false;
+            return right == interval.right;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = left;
+            result = 31 * result + right;
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "Interval{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    '}';
+        }
+    }
+
+    /**
+     * Adds interval to the array of disjoint (non-overlapping) intervals
+     *
+     * @param intervals disjoint (non-overlapping)
+     * @param addition  new interval to be added
+     * @return disjoint (non-overlapping) intervals array with new interval added
+     */
+    public static List<Interval> addInterval(List<Interval> intervals, Interval addition) {
+        List<Interval> result = new ArrayList<>();
+
+        int i = 0;
+        while (i < intervals.size() && intervals.get(i).left > addition.right) {
+            result.add(intervals.get(i++));
+        }
+
+        while (i < intervals.size() && intervals.get(i).left <= addition.right) {
+            addition = new Interval(
+                    Math.min(intervals.get(i).left, addition.left),
+                    Math.max(intervals.get(i).right, addition.right)
+            );
+            ++i;
+        }
+        result.add(addition);
+
+        result.addAll(intervals.subList(i, intervals.size()));
+        return result;
+    }
 }
