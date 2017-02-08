@@ -1,6 +1,7 @@
 package com.github.tkachuko.origramming.interview.sorting;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Sorting {
@@ -102,6 +103,34 @@ public class Sorting {
         result.add(addition);
 
         result.addAll(intervals.subList(i, intervals.size()));
+        return result;
+    }
+
+    /**
+     * Converts any list with overlapping intervals to list of non-overlapping intervals
+     *
+     * @param intervals list with overlapping intervals
+     * @return list of non-overlapping intervals
+     */
+    public static List<Interval> mergeIntervals(List<Interval> intervals) {
+        Collections.sort(intervals, (i1, i2) -> i1.left - i2.left);
+
+        List<Interval> result = new ArrayList<>();
+        Interval current = intervals.get(0);
+        for (int i = 1; i < intervals.size(); i++) {
+            Interval next = intervals.get(i);
+            if (next.left <= current.right || next.left - current.right == 1) {
+                current = new Interval(
+                        Math.min(current.left, next.left),
+                        Math.max(current.right, next.right)
+                );
+            } else {
+                result.add(current);
+                current = next;
+            }
+        }
+
+        result.add(current);
         return result;
     }
 }

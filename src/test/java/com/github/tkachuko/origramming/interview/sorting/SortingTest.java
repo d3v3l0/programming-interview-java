@@ -76,4 +76,29 @@ public class SortingTest {
                 }
         };
     }
+
+    @Test
+    @Parameters
+    public static void shouldMergeOverlappingIntervals(List<Interval> intervals, List<Interval> merged) {
+        assertThat(mergeIntervals(intervals)).isEqualTo(merged);
+    }
+
+    public static Object parametersForShouldMergeOverlappingIntervals() {
+        return new Object[]{
+                new Object[]{
+                        Arrays.asList(
+                                Interval.of(8, 10), Interval.of(7, 10), Interval.of(1, 2),
+                                Interval.of(9, 10), Interval.of(11, 12)),
+                        Arrays.asList(Interval.of(1, 2), Interval.of(7, 12))
+                },
+                new Object[]{
+                        Arrays.asList(Interval.of(1, 2), Interval.of(3, 4)),
+                        Arrays.asList(Interval.of(1, 4))
+                },
+                new Object[]{
+                        Arrays.asList(Interval.of(1, 2), Interval.of(5, 6)),
+                        Arrays.asList(Interval.of(1, 2), Interval.of(5, 6))
+                }
+        };
+    }
 }
