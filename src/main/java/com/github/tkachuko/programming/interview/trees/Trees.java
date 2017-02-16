@@ -168,7 +168,7 @@ public class Trees {
     }
 
     private static <T> void leftToRightLevelMapping(BinaryTreeNode<T> leftmostOfTheLevel,
-                                                   Map<BinaryTreeNode<T>, BinaryTreeNode<T>> acc) {
+                                                    Map<BinaryTreeNode<T>, BinaryTreeNode<T>> acc) {
         while (leftmostOfTheLevel != null) {
             acc.put(leftmostOfTheLevel.left, leftmostOfTheLevel.right);
 
