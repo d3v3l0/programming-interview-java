@@ -90,6 +90,11 @@ public class HashTablesTest {
                         Arrays.asList("banana", "slam", "brute", "something"),
                         Arrays.asSet("banana", "something"),
                         new int[]{0, 3}
+                },
+                new Object[]{
+                        Arrays.asList("brute", "banana", "something", "brute", "brute", "something"),
+                        Arrays.asSet("banana", "something"),
+                        new int[]{1, 2}
                 }
         };
     }
