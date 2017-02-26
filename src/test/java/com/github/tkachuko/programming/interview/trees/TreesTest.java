@@ -274,4 +274,28 @@ public class TreesTest {
                 entry(4, 5), entry(5, 7), entry(7, 8), entry(8, 24), entry(24, 25), entry(25, 27), entry(27, 28)
         );
     }
+
+    @Test
+    public void shouldFindMaxLevelSumInBalancedTree() {
+        BinaryTreeNode<Integer> tree = tree(
+                4,
+                node(2, -1, 3),
+                node(-5, -2, 6)
+        );
+        assertEquals(6, maxLevelSum(tree));
+    }
+
+    @Test
+    public void shouldFindMaxLevelSumInUnbalancedTree() {
+        BinaryTreeNode<Integer> tree = tree(
+                1,
+                node(2, 4, 5),
+                tree(
+                        3,
+                        null,
+                        node(8, 6, 7)
+                )
+        );
+        assertEquals(17, maxLevelSum(tree));
+    }
 }

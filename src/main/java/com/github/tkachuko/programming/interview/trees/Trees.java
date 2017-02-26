@@ -179,4 +179,31 @@ public class Trees {
             leftmostOfTheLevel = acc.get(leftmostOfTheLevel);
         }
     }
+
+    /**
+     * Finds greatest level sum in tree
+     *
+     * @param root of tree
+     * @return max sum of the level
+     */
+    public static int maxLevelSum(BinaryTreeNode<Integer> root) {
+        List<BinaryTreeNode<Integer>> level = new ArrayList<>();
+        level.add(root);
+        int maxSum = Integer.MIN_VALUE;
+
+        while (!level.isEmpty()) {
+            int sum = level.stream().mapToInt(node -> node.data).sum();
+            if (sum > maxSum) maxSum = sum;
+
+            List<BinaryTreeNode<Integer>> newLevel = new ArrayList<>();
+            for (BinaryTreeNode<Integer> node : level) {
+                if (node.left != null) newLevel.add(node.left);
+                if (node.right != null) newLevel.add(node.right);
+            }
+
+            level = newLevel;
+        }
+
+        return maxSum;
+    }
 }
