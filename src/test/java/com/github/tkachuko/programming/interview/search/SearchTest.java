@@ -148,4 +148,20 @@ public class SearchTest {
                 new Object[]{asList(2, 3, 5, 0), 0}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldFindTargetSumInSortedList(List<Integer> list, int target, boolean contains) {
+        assertThat(hasSum(list, target)).isEqualTo(contains);
+    }
+
+    private static Object parametersForShouldFindTargetSumInSortedList() {
+        return new Object[]{
+                new Object[]{asList(1, 2, 3, 4, 5), 0, false},
+                new Object[]{asList(1, 2, 3, 4, 5), 9, true},
+                new Object[]{asList(1, 2, 3, 4, 5), 3, true},
+                new Object[]{asList(1, 2, 3, 4, 5), 15, false},
+                new Object[]{asList(-1, 1, 3, 4, 5), 0, true}
+        };
+    }
 }

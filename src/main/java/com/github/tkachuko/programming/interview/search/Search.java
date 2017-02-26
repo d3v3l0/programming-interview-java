@@ -165,4 +165,24 @@ public class Search {
 
         return -1;
     }
+
+    /**
+     * Tests if there are i, j such that list[i] + list[j] = given sum
+     *
+     * @param list   sorted list
+     * @param target sum to be found
+     * @return if there is given sum in list
+     */
+    public static boolean hasSum(List<Integer> list, int target) {
+        int left = 0, right = list.size() - 1;
+
+        while (left < right) {
+            int sum = list.get(left) + list.get(right);
+            if (sum == target) return true;
+            else if (sum < target) left++;
+            else right--;
+        }
+
+        return false;
+    }
 }

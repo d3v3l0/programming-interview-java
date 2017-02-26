@@ -1,7 +1,7 @@
 package com.github.tkachuko.programming.interview.sorting;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Sorting {
@@ -113,7 +113,7 @@ public class Sorting {
      * @return list of non-overlapping intervals
      */
     public static List<Interval> mergeIntervals(List<Interval> intervals) {
-        Collections.sort(intervals, (i1, i2) -> i1.left - i2.left);
+        intervals.sort(Comparator.comparingInt(i2 -> i2.left));
 
         List<Interval> result = new ArrayList<>();
         Interval current = intervals.get(0);
