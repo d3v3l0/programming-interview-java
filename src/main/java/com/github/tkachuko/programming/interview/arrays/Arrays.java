@@ -337,4 +337,20 @@ public class Arrays {
     public static <T> Set<T> asSet(T... elements) {
         return new HashSet<>(java.util.Arrays.asList(elements));
     }
+
+    /**
+     * Find subarray with maximum sum
+     *
+     * @param array of integers
+     * @return maximum sum of subarray
+     */
+    public static int subArrayWithMaxSum(int[] array) {
+        int maxSoFar = Integer.MIN_VALUE, maxEndingHere = 0;
+        for (int element : array) {
+            maxEndingHere = maxEndingHere + element;
+            if (maxSoFar < maxEndingHere) maxSoFar = maxEndingHere;
+            if (maxEndingHere < 0) maxEndingHere = 0;
+        }
+        return maxSoFar;
+    }
 }

@@ -322,4 +322,18 @@ public class ArraysTest {
                 new Object[]{asList(1, 2, 3, 4, 5), 5}
         };
     }
+
+    @Test
+    @Parameters
+    public void shouldFindMaxSumOfSubArray(int[] elements, int maxSum) {
+        assertEquals(maxSum, subArrayWithMaxSum(elements));
+    }
+
+    public Object parametersForShouldFindMaxSumOfSubArray() {
+        return new Object[]{
+                new Object[]{new int[]{1, 2, 3, 4, 5}, 15},
+                new Object[]{new int[]{-2, -3, 4, -1, -2, 1, 5, -3}, 7},
+                new Object[]{new int[]{-2, -3, 4, -1, -2, -1, 1, 5, -3}, 6}
+        };
+    }
 }
