@@ -5,7 +5,28 @@ import java.util.*;
 public class Trees {
 
     /**
-     * Checks if binary tree is balanced or if height of the right and left subtree is different not more than one.
+     * Check if binary tree is binary search tree
+     *
+     * @param root of tree
+     * @return if satisfies BST property
+     */
+    public static boolean isBST(BinaryTreeNode<Integer> root) {
+        return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private static boolean isBST(BinaryTreeNode<Integer> root, int min, int max) {
+        if (root == null) return true;
+
+        boolean rootIsValid = root.data > min && root.data <= max;
+
+        return rootIsValid
+                && isBST(root.left, min, root.data)
+                && isBST(root.right, root.data, max);
+    }
+
+    /**
+     * Checks if binary tree is balanced or if height of the right
+     * and left subtree is different not more than one
      *
      * @param root of the tree
      * @param <T>  type of elements in a tree
@@ -26,16 +47,15 @@ public class Trees {
      * @return true if try is symmetric, false - otherwise
      */
     public static <T> boolean isSymmetric(BinaryTreeNode<T> root) {
-        return isMirrored(root.left, root.right);
+        return root == null || isMirrored(root.left, root.right);
     }
 
     private static <T> boolean isMirrored(BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
-        if (left == null && right == null) return true;
-        else if (left != null && right != null)
-            return Objects.equals(left.data, right.data) &&
-                    isMirrored(left.left, right.right) &&
-                    isMirrored(left.right, right.left);
-        else return false;
+        if (left != null && right != null) {
+            return Objects.equals(left.data, right.data)
+                    && isMirrored(left.left, right.right)
+                    && isMirrored(left.right, right.left);
+        } else return left == null && right == null;
     }
 
     /**
@@ -54,8 +74,8 @@ public class Trees {
     }
 
     private static class LCAData<T> {
-        public final int numberOfTargetNodesMet;
-        public final BinaryTreeNode<T> ancestor;
+        final int numberOfTargetNodesMet;
+        final BinaryTreeNode<T> ancestor;
 
         public LCAData(int numberOfTargetNodesMet, BinaryTreeNode<T> ancestor) {
             this.numberOfTargetNodesMet = numberOfTargetNodesMet;
@@ -78,21 +98,67 @@ public class Trees {
                 rightData.numberOfTargetNodesMet +
                 (root == first ? 1 : 0) + (root == second ? 1 : 0);
 
-        return new LCAData<>(totalTargetNodesMet, totalTargetNodesMet == 2 ? root : null);
+        return new LCAData<>(totalTargetNodesMet, root);
     }
 
     /**
-     * Given tree of integers. Define ia has given path from root to any of the leafs.
+     * Given tree of integers. Define if it has given path from root to any of the leafs.
      *
      * @param root      of tree
      * @param targetSum sum to be found
      * @return if tree has given sum from root to any leafs
      */
-    public static boolean hasPathWithSum(BinaryTreeNode<Integer> root, int targetSum) {
-        int remaining = targetSum - (root == null ? 0 : root.data);
+    public static boolean hasRootPathWithSum(BinaryTreeNode<Integer> root, int targetSum) {
         if (root == null) return false;
-        else if (root.isLeaf()) return remaining == 0;
-        else return hasPathWithSum(root.left, remaining) || hasPathWithSum(root.right, remaining);
+        int remaining = targetSum - root.data;
+        if (root.isLeaf()) return remaining == 0;
+        return hasRootPathWithSum(root.left, remaining) ||
+                hasRootPathWithSum(root.right, remaining);
+    }
+
+    /**
+     * Find all paths in a tree that have given sum. Path may not start from the tree root.
+     *
+     * @param root   of the tree
+     * @param target sum to be found
+     * @return all paths in a tree that have given sum
+     */
+    public static Set<List<Integer>> hasAnyPathWithSum(BinaryTreeNode<Integer> root, int target) {
+        Set<List<Integer>> result = new HashSet<>();
+        hasAnyPathWithSumHelper(root, target, new LinkedList<>(), result);
+        return result;
+    }
+
+    public static void hasAnyPathWithSumHelper(BinaryTreeNode<Integer> root,
+                                               int target,
+                                               LinkedList<Integer> path,
+                                               Set<List<Integer>> acc) {
+        if (root == null) return;
+
+        path.add(root.data);
+
+        hasAnyPathWithSumHelper(root.left, target, path, acc);
+        hasAnyPathWithSumHelper(root.right, target, path, acc);
+
+        int sum = 0;
+
+        for (int i = path.size() - 1; i > 0; i--) {
+            sum += path.get(i);
+            if (sum == target) {
+                List<Integer> pathWithSum = path.subList(i, path.size());
+                acc.add(new ArrayList<>(pathWithSum));
+            }
+        }
+
+        for (int i = 0; i < path.size(); i++) {
+            sum += path.get(i);
+            if (sum == target) {
+                List<Integer> pathWithSum = path.subList(i, path.size());
+                acc.add(new ArrayList<>(pathWithSum));
+            }
+        }
+
+        path.removeLast();
     }
 
     /**
@@ -103,15 +169,13 @@ public class Trees {
      * @return all node data in in-order traversal
      */
     public static <T> List<T> inOrderTraversal(BinaryTreeNode<T> root) {
-        ArrayList<T> result = new ArrayList<>();
+        List<T> result = new ArrayList<>();
         inOrderTraversalHelper(root, result);
         return result;
     }
 
     private static <T> void inOrderTraversalHelper(BinaryTreeNode<T> root, List<T> acc) {
-        if (root == null) return;
-        else if (root.isLeaf()) acc.add(root.data);
-        else {
+        if (root != null) {
             inOrderTraversalHelper(root.left, acc);
             acc.add(root.data);
             inOrderTraversalHelper(root.right, acc);
@@ -127,7 +191,7 @@ public class Trees {
      * @return exterior of tree
      */
     public static <T> List<T> exteriorOfTree(BinaryTreeNode<T> root) {
-        ArrayList<T> result = new ArrayList<>();
+        List<T> result = new ArrayList<>();
         rootToSideLeafPath(root, true, result);
         allLeafs(root, result);
         rootToSideLeafPath(root, false, result);
@@ -159,7 +223,8 @@ public class Trees {
      * @return mapping of every node to the next node to the right on this level
      */
     public static <T> Map<BinaryTreeNode<T>, BinaryTreeNode<T>> leftTheRightLevelMapping(BinaryTreeNode<T> root) {
-        HashMap<BinaryTreeNode<T>, BinaryTreeNode<T>> result = new HashMap<>();
+        if (root == null) return Collections.emptyMap();
+        Map<BinaryTreeNode<T>, BinaryTreeNode<T>> result = new HashMap<>();
         while (root != null && root.hasLeft()) {
             leftToRightLevelMapping(root, result);
             root = root.left;

@@ -2,8 +2,7 @@ package com.github.tkachuko.programming.interview.trees;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.github.tkachuko.programming.interview.trees.BinaryTreeNode.node;
@@ -141,7 +140,7 @@ public class TreesTest {
                                 7
                         )
                 );
-        assertTrue(hasPathWithSum(tree, 6));
+        assertTrue(hasRootPathWithSum(tree, 6));
     }
 
     @Test
@@ -159,7 +158,7 @@ public class TreesTest {
                                 7
                         )
                 );
-        assertTrue(hasPathWithSum(tree, 13));
+        assertTrue(hasRootPathWithSum(tree, 13));
     }
 
     @Test
@@ -177,7 +176,7 @@ public class TreesTest {
                                 7
                         )
                 );
-        assertTrue(hasPathWithSum(tree, 12));
+        assertTrue(hasRootPathWithSum(tree, 12));
     }
 
     @Test
@@ -195,7 +194,7 @@ public class TreesTest {
                                 7
                         )
                 );
-        assertFalse(hasPathWithSum(tree, 28));
+        assertFalse(hasRootPathWithSum(tree, 28));
     }
 
     @Test
@@ -297,5 +296,34 @@ public class TreesTest {
                 )
         );
         assertEquals(17, maxLevelSum(tree));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void shouldFindAllPathsWithSum() {
+        BinaryTreeNode<Integer> tree = tree(
+                1,
+                tree(
+                        3,
+                        node(2),
+                        tree(1, node(1), null)
+                ),
+                tree(
+                        -1,
+                        node(4, 1, 2),
+                        tree(5, null, node(6))
+                )
+        );
+        Set<List<Integer>> result = hasAnyPathWithSum(tree, 5);
+        assertThat(result).containsOnly(
+                Arrays.asList(3, 2),
+                Arrays.asList(3, 1, 1),
+                Arrays.asList(1, 3, 1),
+                Arrays.asList(4, 1),
+                Arrays.asList(1, -1, 4, 1),
+                Arrays.asList(-1, 4, 2),
+                Collections.singletonList(5),
+                Arrays.asList(1, -1, 5)
+        );
     }
 }
