@@ -271,4 +271,29 @@ public class Trees {
 
         return maxSum;
     }
+
+    /**
+     * Finds all keys in range of BST
+     *
+     * @param root of BST
+     * @return keys in range [min, max]
+     */
+    public static Set<Integer> allKeysInRange(BinaryTreeNode<Integer> root, int min, int max) {
+        Set<Integer> result = new HashSet<>();
+        allKeysInRange(root, min, max, result);
+        return result;
+    }
+
+    private static void allKeysInRange(BinaryTreeNode<Integer> root,
+                                       int min, int max, Set<Integer> acc) {
+        if (root == null) return;
+
+        int key = root.data;
+        if (min <= key && key <= max) {
+            acc.add(key);
+            allKeysInRange(root.left, min, max, acc);
+            allKeysInRange(root.right, min, max, acc);
+        } else if (key < min) allKeysInRange(root.right, min, max, acc);
+        else allKeysInRange(root.left, min, max, acc);
+    }
 }

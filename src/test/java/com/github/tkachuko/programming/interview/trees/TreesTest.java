@@ -15,6 +15,40 @@ import static org.junit.Assert.*;
 public class TreesTest {
 
     @Test
+    public void shouldCheckIfTreeIsBST() {
+        BinaryTreeNode<Integer> tree = tree(10,
+                node(
+                        5,
+                        3,
+                        7
+                ),
+                node(
+                        15,
+                        13,
+                        17
+                )
+        );
+        assertTrue(isBST(tree));
+    }
+
+    @Test
+    public void shouldCheckIfTreeIsNotBST() {
+        BinaryTreeNode<Integer> tree = tree(10,
+                node(
+                        5,
+                        3,
+                        11
+                ),
+                node(
+                        15,
+                        13,
+                        17
+                )
+        );
+        assertFalse(isBST(tree));
+    }
+
+    @Test
     public void shouldCheckTreeIsBalanced() {
         BinaryTreeNode<Integer> tree =
                 tree(1,
@@ -325,5 +359,22 @@ public class TreesTest {
                 Collections.singletonList(5),
                 Arrays.asList(1, -1, 5)
         );
+    }
+
+    @Test
+    public void shouldFindKeysThatBelongToIntervalInBST() {
+        BinaryTreeNode<Integer> tree = tree(10,
+                node(
+                        5,
+                        3,
+                        7
+                ),
+                node(
+                        15,
+                        13,
+                        17
+                )
+        );
+        assertEquals(new HashSet<>(Arrays.asList(5, 7, 10, 13)), allKeysInRange(tree, 5, 13));
     }
 }
