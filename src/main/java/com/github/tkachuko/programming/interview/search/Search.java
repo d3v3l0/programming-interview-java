@@ -1,5 +1,11 @@
 package com.github.tkachuko.programming.interview.search;
 
+import com.github.tkachuko.programming.interview.search.trie.memory.Trie;
+
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Search {
@@ -184,5 +190,18 @@ public class Search {
         }
 
         return false;
+    }
+
+    /**
+     * Determines if file contains entry
+     *
+     * @param file  with text where each line represents an entry
+     * @param entry candidate
+     * @return if entry belongs to file
+     */
+    public static boolean contains(URI file, String entry) throws IOException {
+        Trie trie = new Trie();
+        Files.lines(Paths.get(file)).forEach(trie::insert);
+        return trie.contains(entry);
     }
 }

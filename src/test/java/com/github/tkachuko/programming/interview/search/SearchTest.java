@@ -5,6 +5,7 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -163,5 +164,12 @@ public class SearchTest {
                 new Object[]{asList(1, 2, 3, 4, 5), 15, false},
                 new Object[]{asList(-1, 1, 3, 4, 5), 0, true}
         };
+    }
+
+    @Test
+    @Parameters({"/files/100.mb.txt"})
+    public void shouldDetermineIfEntryBelongsToFile(String path) throws Exception {
+        boolean result = contains(getClass().getResource(path).toURI(), "hello");
+        assertThat(result).isFalse();
     }
 }
