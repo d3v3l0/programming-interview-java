@@ -5,7 +5,6 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;

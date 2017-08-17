@@ -5,10 +5,13 @@ import com.github.tkachuko.programming.interview.search.trie.common.NonEmptyNode
 import com.github.tkachuko.programming.interview.search.trie.common.TrieNode;
 import com.github.tkachuko.programming.interview.search.trie.common.TrieSpec;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Trie implements TrieSpec {
+public class Trie implements TrieSpec, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Map<Character, TrieNode> root = new HashMap<>();
 
