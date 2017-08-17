@@ -1,6 +1,6 @@
 package com.github.tkachuko.programming.interview.search.trie.common;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,12 +34,5 @@ public class NonEmptyNode implements TrieNode, Serializable {
     @Override
     public int hashCode() {
         return (int) value;
-    }
-
-    public static void main(String[] args) throws IOException {
-        ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("/tmp/test.bin"));
-        stream.writeObject(new NonEmptyNode('1'));
-        stream.close();
-        System.out.println(stream);
     }
 }
