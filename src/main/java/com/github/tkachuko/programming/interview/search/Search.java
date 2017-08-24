@@ -1,12 +1,16 @@
 package com.github.tkachuko.programming.interview.search;
 
+import com.github.tkachuko.programming.interview.search.trie.common.alphabet.AlphabetEncoding;
 import com.github.tkachuko.programming.interview.search.trie.memory.Trie;
 
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Search {
 
@@ -200,8 +204,16 @@ public class Search {
      * @return if entry belongs to file
      */
     public static boolean contains(URI file, String entry) throws IOException {
-        Trie trie = new Trie();
-        Files.lines(Paths.get(file)).forEach(trie::insert);
+        Path path = Paths.get(file);
+        Trie trie = new Trie(new AlphabetEncoding(alphabet(path)));
+        Files.lines(path).forEach(trie::insert);
         return trie.contains(entry);
+    }
+
+    private static Set<Character> alphabet(Path file) throws IOException {
+        return Files.lines(file)
+                .flatMap(line -> line.chars().mapToObj(i -> (char) i))
+                .distinct()
+                .collect(Collectors.toSet());
     }
 }

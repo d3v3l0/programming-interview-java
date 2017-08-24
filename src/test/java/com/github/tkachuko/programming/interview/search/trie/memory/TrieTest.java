@@ -1,5 +1,6 @@
 package com.github.tkachuko.programming.interview.search.trie.memory;
 
+import com.github.tkachuko.programming.interview.search.trie.common.alphabet.AlphabetEncoding;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -15,7 +16,7 @@ public class TrieTest {
     public void shouldInsertAndContainAverageString() {
         String word = "hello";
 
-        Trie trie = new Trie();
+        Trie trie = new Trie(new AlphabetEncoding(word));
         trie.insert(word);
 
         assertThat(trie.contains(word)).isTrue();
@@ -25,7 +26,7 @@ public class TrieTest {
     public void shouldNotContainSubstring() {
         String word = "hello";
 
-        Trie trie = new Trie();
+        Trie trie = new Trie(new AlphabetEncoding(word));
         trie.insert(word);
 
         assertThat(trie.contains(word.substring(0, word.length() - 2))).isFalse();
@@ -35,12 +36,13 @@ public class TrieTest {
     public void shouldInsertAndContainSomeNumberOfStrings() {
         int size = 1000;
 
-        Trie trie = new Trie();
         Set<String> words = new HashSet<>();
 
         IntStream.rangeClosed(1, size)
                 .mapToObj(i -> UUID.randomUUID().toString())
                 .forEach(words::add);
+
+        Trie trie = new Trie(new AlphabetEncoding(words));
 
         words.forEach(trie::insert);
 

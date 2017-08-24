@@ -1,23 +1,21 @@
 package com.github.tkachuko.programming.interview.search.trie.common;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class NonEmptyNode implements TrieNode, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final char value;
-    private final Map<Character, TrieNode> children;
+    private final TrieNode[] children;
 
-    public NonEmptyNode(char value) {
+    public NonEmptyNode(char value, int max) {
         this.value = value;
-        children = new HashMap<>();
+        children = new TrieNode[max];
     }
 
     @Override
-    public Map<Character, TrieNode> children() {
+    public TrieNode[] children() {
         return children;
     }
 

@@ -1,14 +1,10 @@
 package com.github.tkachuko.programming.interview.search.trie.file;
 
 import com.github.tkachuko.programming.interview.search.trie.common.TrieSpec;
+import com.github.tkachuko.programming.interview.search.trie.common.alphabet.AlphabetEncoding;
 import com.github.tkachuko.programming.interview.search.trie.memory.Trie;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class TrieOfFiles implements TrieSpec {
 
@@ -18,9 +14,11 @@ public class TrieOfFiles implements TrieSpec {
     private static final String SERIALIZED_TRIE_NAME_PATTERN = "%s.trie.bin";
 
     private final String baseDirectoryPath;
+    private final AlphabetEncoding alphabetEncoding;
 
-    public TrieOfFiles(String baseDirectoryPath) {
+    public TrieOfFiles(String baseDirectoryPath, AlphabetEncoding alphabetEncoding) {
         this.baseDirectoryPath = baseDirectoryPath;
+        this.alphabetEncoding = alphabetEncoding;
     }
 
     @Override
@@ -58,7 +56,7 @@ public class TrieOfFiles implements TrieSpec {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Trie trie = new Trie();
+            Trie trie = new Trie(alphabetEncoding);
             writeTrie(trie, file);
             updateCache(key, trie);
         }
@@ -93,30 +91,5 @@ public class TrieOfFiles implements TrieSpec {
     private void updateCache(char key, Trie trie) {
         LAST_USED_TRIE = trie;
         LAST_USED_KEY = key;
-    }
-
-    public static void main(String[] args) throws IOException {
-//        AtomicInteger currentLine = new AtomicInteger(0);
-//
-//        TrieOfFiles trie = new TrieOfFiles("/tmp/");
-//        Files.lines(Paths.get("/Users/kelebra/Downloads/pwned-passwords-1.0.txt"))
-//                .peek(l -> {
-//                    int i = currentLine.incrementAndGet();
-//                    if(i % 1000 == 0) System.out.println("Working on line # " + i);
-//                })
-//                .forEach(trie::insert);
-//        System.out.println(trie.contains("aloha"));
-
-        AtomicInteger currentLine = new AtomicInteger(0);
-
-        Set<Character> alphabet =
-                Files.lines(Paths.get("/Users/kelebra/Downloads/pwned-passwords-1.0.txt"))
-                        .peek(l -> {
-                            int i = currentLine.incrementAndGet();
-                            if (i % 100000 == 0) System.out.println("Working on line # " + i);
-                        })
-                        .flatMap(line -> line.chars().mapToObj(c -> (char)c).distinct())
-                        .collect(Collectors.toSet());
-        System.out.println(alphabet);
     }
 }

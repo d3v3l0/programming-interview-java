@@ -4,31 +4,38 @@ import com.github.tkachuko.programming.interview.search.trie.common.EmptyNode;
 import com.github.tkachuko.programming.interview.search.trie.common.NonEmptyNode;
 import com.github.tkachuko.programming.interview.search.trie.common.TrieNode;
 import com.github.tkachuko.programming.interview.search.trie.common.TrieSpec;
+import com.github.tkachuko.programming.interview.search.trie.common.alphabet.AlphabetEncoding;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Trie implements TrieSpec, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Map<Character, TrieNode> root = new HashMap<>();
+    private final TrieNode[] root;
+    private final AlphabetEncoding alphabet;
+
+    public Trie(AlphabetEncoding alphabet) {
+        this.alphabet = alphabet;
+        this.root = new TrieNode[alphabet.size()];
+    }
 
     @Override
     public void insert(String word) {
         if (word == null || word.isEmpty()) return;
 
-        Map<Character, TrieNode> level = root;
+        TrieNode[] level = root;
 
         for (int i = 0; i < word.length(); i++) {
             char key = word.charAt(i);
 
-            level = level
-                    .compute(key, (k, v) -> v == null ? new NonEmptyNode(k) : v)
-                    .children();
+            int index = alphabet.charToIndex(key);
+            if (level[index] == null) {
+                level[index] = new NonEmptyNode(key, alphabet.size());
+            }
+            level = level[index].children();
 
-            if (i == word.length() - 1) level.put(null, EmptyNode.instance());
+            if (i == word.length() - 1) level[index] = EmptyNode.instance();
         }
     }
 
@@ -36,15 +43,16 @@ public class Trie implements TrieSpec, Serializable {
     public boolean contains(String word) {
         if (word == null || word.isEmpty()) return false;
 
-        Map<Character, TrieNode> level = root;
+        TrieNode[] level = root;
 
         for (int i = 0; i < word.length(); i++) {
-            TrieNode node = level.get(word.charAt(i));
+            int index = alphabet.charToIndex(word.charAt(i));
+            TrieNode node = level[index];
 
             if (node == null) return false;
             else level = node.children();
         }
 
-        return level.containsValue(EmptyNode.instance());
+        return level[alphabet.charToIndex(word.charAt(word.length() - 1))] == EmptyNode.instance();
     }
 }

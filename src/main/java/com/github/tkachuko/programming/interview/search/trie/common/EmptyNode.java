@@ -1,8 +1,6 @@
 package com.github.tkachuko.programming.interview.search.trie.common;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Map;
 
 public class EmptyNode implements TrieNode, Serializable {
 
@@ -18,7 +16,7 @@ public class EmptyNode implements TrieNode, Serializable {
     }
 
     @Override
-    public Map<Character, TrieNode> children() {
-        return Collections.EMPTY_MAP;
+    public TrieNode[] children() {
+        return null;
     }
 }
