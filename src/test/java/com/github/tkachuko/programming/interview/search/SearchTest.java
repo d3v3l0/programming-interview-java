@@ -166,9 +166,9 @@ public class SearchTest {
     }
 
     @Test
-    @Parameters({"/files/100.mb.txt"})
+    @Parameters({"/textFile.txt"})
     public void shouldDetermineIfEntryBelongsToFile(String path) throws Exception {
-        boolean result = contains(getClass().getResource(path).toURI(), "hello");
-        assertThat(result).isFalse();
+        boolean result = contains(getClass().getResource(path).toURI(), "beautiful");
+        assertThat(result).isTrue();
     }
 }
