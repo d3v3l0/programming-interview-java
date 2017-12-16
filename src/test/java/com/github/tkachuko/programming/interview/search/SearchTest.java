@@ -164,11 +164,4 @@ public class SearchTest {
                 new Object[]{asList(-1, 1, 3, 4, 5), 0, true}
         };
     }
-
-    @Test
-    @Parameters({"/textFile.txt"})
-    public void shouldDetermineIfEntryBelongsToFile(String path) throws Exception {
-        boolean result = contains(getClass().getResource(path).toURI(), "beautiful");
-        assertThat(result).isTrue();
-    }
 }
