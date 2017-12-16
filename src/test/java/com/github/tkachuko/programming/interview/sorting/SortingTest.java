@@ -101,4 +101,11 @@ public class SortingTest {
                 }
         };
     }
+
+    @Test
+    @Parameters({"John, Cara, Alex, Johnny, James, Billy, Anna, G"})
+    public void shouldConvertToChitListAndBack(String... names) {
+        List<Chit> chits = encodeGuests(names);
+        assertThat(decodeGuests(chits)).containsExactlyInAnyOrder(names);
+    }
 }

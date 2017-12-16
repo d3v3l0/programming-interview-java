@@ -1,8 +1,6 @@
 package com.github.tkachuko.programming.interview.sorting;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Sorting {
 
@@ -131,6 +129,59 @@ public class Sorting {
         }
 
         result.add(current);
+        return result;
+    }
+
+    public static class Chit {
+
+        private final String name;
+        private final String neighbour;
+
+        public Chit(String name, String neighbour) {
+            this.name = name;
+            this.neighbour = neighbour;
+        }
+
+        @Override
+        public String toString() {
+            return name + " -> " + neighbour;
+        }
+    }
+
+    /**
+     * Represents N guests sitting at round table enumerated 0 to N - 1 clockwise.
+     *
+     * @param names of guests
+     * @return mixed chits containing guest name and it clockwise neighbour name.
+     */
+    public static List<Chit> encodeGuests(String... names) {
+        List<Chit> chits = new ArrayList<>(names.length);
+        for (int i = 0; i < names.length - 1; i++) {
+            chits.add(new Chit(names[i], names[i + 1]));
+        }
+        chits.add(new Chit(names[names.length - 1], names[0]));
+        Collections.shuffle(chits);
+        return chits;
+    }
+
+    /**
+     * Restores round table from guest chits
+     *
+     * @param chits list of mixed chits of guests and their clockwise neighbours
+     * @return round table initial state
+     */
+    public static List<String> decodeGuests(List<Chit> chits) {
+        Map<String, String> mapping = new HashMap<>();
+        List<String> result = new ArrayList<>(chits.size());
+        for (Chit chit : chits) {
+            mapping.put(chit.name, chit.neighbour);
+        }
+
+        result.add(chits.get(0).name);
+        for (int i = 0; i < chits.size() - 1; i++) {
+            result.add(mapping.get(result.get(i)));
+        }
+
         return result;
     }
 }
