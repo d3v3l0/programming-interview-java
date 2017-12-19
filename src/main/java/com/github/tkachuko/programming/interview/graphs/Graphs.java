@@ -1,5 +1,9 @@
 package com.github.tkachuko.programming.interview.graphs;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 public class Graphs {
 
     /**
@@ -20,5 +24,35 @@ public class Graphs {
         }
 
         return true;
+    }
+
+    /**
+     * Topologically sort given graph
+     *
+     * @param adjacency matrix of graph
+     * @return topologically sorted
+     */
+    public static List<Integer> topologicalSort(boolean[][] adjacency) {
+        Stack<Integer> stack = new Stack<>();
+
+        boolean visited[] = new boolean[adjacency.length];
+        for (int i = 0; i < adjacency.length; i++) {
+            if (!visited[i]) topologicalVisit(adjacency, i, visited, stack);
+        }
+
+        List<Integer> sorted = new ArrayList<>(stack.size());
+        while (!stack.isEmpty()) sorted.add(stack.pop());
+        return sorted;
+    }
+
+    private static void topologicalVisit(boolean[][] adjacency, int currentNode,
+                                         boolean visited[], Stack<Integer> stack) {
+        visited[currentNode] = true;
+        for (int i = 0; i < adjacency[currentNode].length; i++) {
+            if (!visited[i] && adjacency[currentNode][i])
+                topologicalVisit(adjacency, i, visited, stack);
+        }
+
+        stack.push(currentNode);
     }
 }
