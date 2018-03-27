@@ -15,7 +15,7 @@ public class Primitives {
         word ^= word >>> 8;
         word ^= word >>> 4;
         word ^= word >>> 2;
-        return (short) (word & 0x01);
+        return (short) (word & 1);
     }
 
     /**
