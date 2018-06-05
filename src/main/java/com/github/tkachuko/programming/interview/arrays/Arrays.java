@@ -339,17 +339,17 @@ public class Arrays {
     }
 
     /**
-     * Find subarray with maximum sum
+     * Find subarray with maximum positive sum
      *
      * @param array of integers
-     * @return maximum sum of subarray
+     * @return maximum positive sum of subarray
      */
     public static int subArrayWithMaxSum(int[] array) {
-        int maxSoFar = Integer.MIN_VALUE, maxEndingHere = 0;
+        int maxSoFar = Integer.MIN_VALUE, currentSum = 0;
         for (int element : array) {
-            maxEndingHere = maxEndingHere + element;
-            if (maxSoFar < maxEndingHere) maxSoFar = maxEndingHere;
-            if (maxEndingHere < 0) maxEndingHere = 0;
+            currentSum = currentSum + element;
+            if (currentSum > maxSoFar) maxSoFar = currentSum;
+            if(currentSum < 0) currentSum = 0;
         }
         return maxSoFar;
     }
